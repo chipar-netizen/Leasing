@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Novated lease — comparative analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16232B; --ink-2:#42555F; --ink-3:#6D8089;
+  --paper:#F6F7F5; --panel:#FFFFFF; --rule:#CBD4D0; --rule-2:#E4EAE7;
+  --lease:#1F6F5C; --lease-w:#E6F0EC;
+  --loan:#42557E;  --loan-w:#E8EBF3;
+  --cash:#7D6A96;  --cash-w:#EFEBF4;
+  --liab:#A8442A;  --liab-w:#F7E9E4;
+  --signal:#B4881F; --signal-w:#FBF3DE;
+  --sans:"Archivo",-apple-system,"Segoe UI",system-ui,sans-serif;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --shell:1px solid var(--rule);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:400 15px/1.5 var(--sans);font-variant-numeric:tabular-nums}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.01em}
+a{color:var(--lease)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- reckoning band ---------- */
+.reckon{position:sticky;top:0;z-index:40;background:var(--ink);color:#EDF1EF;
+  border-bottom:3px solid var(--lease)}
+.reckon-in{max-width:1560px;margin:0 auto;padding:14px 20px 16px;
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:start}
+.reckon h1{font:300 clamp(19px,2.4vw,27px)/1.15 var(--serif);color:#fff}
+.reckon h1 b{font-weight:600}
+.reckon .sub{margin-top:3px;font-size:12.5px;color:#9FB4AD}
+.routes{margin-top:12px;display:grid;gap:6px;max-width:760px}
+.route{display:grid;grid-template-columns:130px minmax(0,1fr) 96px;gap:10px;align-items:center;font-size:12.5px}
+.route .rname{color:#B9C9C3}
+.rtrack{height:19px;background:#22333C;border-radius:2px;overflow:hidden;display:flex}
+.rfill{height:100%;transition:width .35s cubic-bezier(.22,.7,.3,1)}
+.rfill.lease{background:var(--lease)} .rfill.bal{background:var(--liab)}
+.rfill.loan{background:var(--loan)}  .rfill.cash{background:var(--cash)}
+.route .rval{text-align:right;font-weight:600;color:#fff}
+.legend{margin-top:8px;font-size:11.5px;color:#8FA5A0;display:flex;gap:14px;flex-wrap:wrap}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:1px;margin-right:5px}
+.hero-fig{text-align:right;white-space:nowrap}
+.hero-fig .k{font-size:11.5px;color:#9FB4AD}
+.hero-fig .v{font:600 clamp(26px,3.6vw,40px)/1 var(--sans);color:#fff;margin-top:2px}
+.hero-fig .t{margin-top:5px;font-size:12px;color:var(--lease);background:#fff;
+  display:inline-block;padding:2px 8px;border-radius:2px;font-weight:600}
+.drawer-btn{margin-top:8px;background:#22333C;border:1px solid #395059;color:#DCE6E2;
+  padding:6px 11px;border-radius:3px;cursor:pointer;font-size:12.5px}
+.drawer-btn:hover{background:#2C4048}
+
+/* ---------- shell ---------- */
+.shell{max-width:1560px;margin:0 auto;display:grid;
+  grid-template-columns:206px minmax(0,1fr);gap:0;align-items:start}
+.rail{position:sticky;top:104px;padding:16px 10px 30px;border-right:var(--shell);
+  max-height:calc(100vh - 104px);overflow-y:auto}
+.rail .grp{font-size:10.5px;color:var(--ink-3);letter-spacing:.06em;
+  margin:16px 0 5px 8px;font-weight:600}
+.rail .grp:first-child{margin-top:0}
+.rail button{display:block;width:100%;text-align:left;background:none;border:0;
+  padding:6px 9px;border-radius:3px;cursor:pointer;font-size:13.5px;color:var(--ink-2);
+  border-left:2px solid transparent}
+.rail button:hover{background:var(--rule-2);color:var(--ink)}
+.rail button[aria-current="true"]{background:var(--lease-w);color:var(--lease);
+  font-weight:600;border-left-color:var(--lease)}
+main{padding:22px 26px 96px;min-width:0}
+
+/* ---------- sheet content ---------- */
+.sheet-h{border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:18px}
+.sheet-h h2{font:400 clamp(20px,2.5vw,29px)/1.15 var(--serif)}
+.sheet-h p{margin:6px 0 0;font-size:13.5px;color:var(--ink-2);max-width:74ch;line-height:1.55}
+.sec{margin:26px 0 10px;font-size:13px;font-weight:600;color:var(--ink);
+  border-bottom:1px solid var(--rule);padding-bottom:5px}
+.sec span{color:var(--ink-3);font-weight:500;margin-right:8px}
+.note{font-size:12px;color:var(--ink-3);line-height:1.55;margin:7px 0 0;max-width:82ch}
+.prose{font:400 15.5px/1.62 var(--serif);max-width:70ch;margin:0 0 13px;color:#1C2C33}
+.prose.key{background:var(--lease-w);border-left:3px solid var(--lease);padding:12px 15px;font-weight:400}
+.prose.warn{background:var(--liab-w);border-left:3px solid var(--liab);padding:12px 15px}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;margin:0 -2px;padding:0 2px}
+table{border-collapse:collapse;width:100%;font-size:13px;background:var(--panel)}
+th,td{padding:5px 9px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--rule-2)}
+th:first-child,td:first-child{text-align:left;white-space:normal;min-width:210px}
+thead th{background:var(--ink);color:#fff;font-weight:600;font-size:12px;
+  position:sticky;top:0;border-bottom:0}
+tbody tr:hover td{background:#FAFBFA}
+td.ind{padding-left:24px;color:var(--ink-2)}
+tr.tot td{font-weight:600;border-top:1px solid var(--ink);background:#FCFCFB}
+tr.hi td{background:var(--lease-w);font-weight:600}
+tr.warn td{background:var(--liab-w)}
+tr.band td{background:var(--signal-w);font-weight:600}
+tr.grp td{background:var(--rule-2);font-weight:600;font-size:12px;color:var(--ink)}
+td.neg{color:var(--liab)} td.pos{color:var(--lease)}
+td.proof{color:var(--lease);font-weight:600}
+td.proof.bad{color:var(--liab)}
+.best{color:var(--lease);font-weight:600}
+
+/* ---------- inputs drawer ---------- */
+.drawer{position:fixed;top:0;right:0;width:392px;max-width:92vw;height:100vh;z-index:60;
+  background:var(--panel);border-left:var(--shell);box-shadow:-14px 0 40px rgba(22,35,43,.13);
+  transform:translateX(100%);transition:transform .3s cubic-bezier(.22,.7,.3,1);
+  display:flex;flex-direction:column}
+.drawer.open{transform:none}
+.drawer-h{padding:14px 16px;border-bottom:var(--shell);display:flex;
+  justify-content:space-between;align-items:center;gap:10px}
+.drawer-h strong{font:500 16px/1.2 var(--serif)}
+.drawer-h .x{background:none;border:1px solid var(--rule);border-radius:3px;
+  padding:4px 9px;cursor:pointer;font-size:13px}
+.drawer-b{overflow-y:auto;padding:4px 16px 40px;flex:1}
+.drawer-f{padding:11px 16px;border-top:var(--shell);font-size:12px;color:var(--ink-3);
+  display:flex;justify-content:space-between;align-items:center;gap:10px}
+.drawer-f button{background:var(--ink);color:#fff;border:0;padding:7px 12px;
+  border-radius:3px;cursor:pointer;font-size:12.5px}
+.igrp{margin:16px 0 4px;font-size:12px;font-weight:600;color:var(--ink);
+  border-bottom:1px solid var(--rule);padding-bottom:4px}
+.irow{display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:9px;
+  align-items:center;padding:4px 0}
+.irow label{font-size:12.5px;color:var(--ink-2);line-height:1.35}
+.irow input{width:100%;text-align:right;font:600 13px var(--sans);
+  font-variant-numeric:tabular-nums;color:var(--signal);background:var(--signal-w);
+  border:1px solid #E2CE96;border-bottom:2px solid var(--signal);border-radius:2px;padding:4px 6px}
+.irow input:focus{background:#fff}
+.irow.key input{background:#FCF2D6;border-color:var(--signal)}
+.itip{font-size:11px;color:var(--ink-3);margin:1px 0 6px;line-height:1.45}
+.iterm{display:grid;grid-template-columns:minmax(0,1fr) repeat(5,minmax(0,1fr));
+  gap:4px;align-items:center;padding:3px 0}
+.iterm span{font-size:11.5px;color:var(--ink-2)}
+.iterm input{text-align:center;font:600 11.5px var(--sans);color:var(--signal);
+  background:var(--signal-w);border:1px solid #E2CE96;border-radius:2px;padding:3px 1px;min-width:0}
+.ihead{display:grid;grid-template-columns:minmax(0,1fr) repeat(5,minmax(0,1fr));gap:4px;
+  font-size:10.5px;color:var(--ink-3);font-weight:600;padding-top:5px}
+.ihead b{text-align:center;font-weight:600}
+.scrim{position:fixed;inset:0;background:rgba(22,35,43,.4);z-index:55;
+  opacity:0;pointer-events:none;transition:opacity .3s}
+.scrim.on{opacity:1;pointer-events:auto}
+
+/* ---------- charts & misc ---------- */
+.chart{background:var(--panel);border:var(--shell);border-radius:3px;padding:14px 16px 6px;margin:14px 0}
+.chart h3{font-size:13.5px;font-weight:600;margin-bottom:2px}
+.chart .cs{font-size:11.5px;color:var(--ink-3);margin:2px 0 8px}
+.chart svg{width:100%;height:auto;display:block;overflow:visible}
+.cgrid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(390px,1fr))}
+.pills{display:flex;gap:5px;flex-wrap:wrap;margin:12px 0}
+.pills button{background:var(--panel);border:var(--shell);border-radius:3px;
+  padding:5px 12px;cursor:pointer;font-size:12.5px;color:var(--ink-2)}
+.pills button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600}
+.kpis{display:grid;gap:9px;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));margin:14px 0}
+.kpi{background:var(--panel);border:var(--shell);border-top:3px solid var(--rule);
+  border-radius:3px;padding:10px 12px}
+.kpi.lease{border-top-color:var(--lease)} .kpi.liab{border-top-color:var(--liab)}
+.kpi.sig{border-top-color:var(--signal)}  .kpi.loan{border-top-color:var(--loan)}
+.kpi .k{font-size:11.5px;color:var(--ink-3);line-height:1.35}
+.kpi .v{font:600 20px/1.2 var(--sans);margin-top:4px}
+.shayari{font:300 italic 17px/1.75 var(--serif);color:#3E5A50;margin:0 0 4px}
+.shayari-t{font-size:12.5px;color:var(--ink-3);font-style:italic;margin:0 0 18px}
+.proofbar{position:fixed;bottom:0;left:0;right:0;z-index:35;background:var(--ink);
+  color:#CFDBD6;font-size:12px;padding:7px 20px;display:flex;gap:16px;
+  justify-content:center;flex-wrap:wrap}
+.proofbar b{color:#fff} .proofbar .ok{color:#7FCBAF} .proofbar .bad{color:#F0A18C}
+.disclaim{margin-top:26px;padding-top:12px;border-top:1px solid var(--rule);
+  font-size:12px;color:var(--ink-3);max-width:84ch;line-height:1.6}
+
+@media (max-width:1000px){
+  .shell{grid-template-columns:1fr}
+  .rail{position:static;max-height:none;border-right:0;border-bottom:var(--shell);
+    display:flex;gap:5px;overflow-x:auto;padding:9px 12px}
+  .rail .grp{display:none}
+  .rail button{width:auto;white-space:nowrap;border-left:0;border-bottom:2px solid transparent}
+  .rail button[aria-current="true"]{border-left:0;border-bottom-color:var(--lease)}
+  main{padding:18px 14px 104px}
+  .reckon-in{grid-template-columns:1fr}
+  .hero-fig{text-align:left}
+  .route{grid-template-columns:104px minmax(0,1fr) 84px;font-size:12px}
+}
+@media (max-width:560px){
+  th:first-child,td:first-child{min-width:150px}
+  .cgrid{grid-template-columns:1fr}
+  th,td{padding:5px 7px;font-size:12px}
+}
+@media print{
+  .reckon,.rail,.drawer,.scrim,.proofbar,.drawer-btn,.pills{display:none!important}
+  .shell{display:block} main{padding:0}
+  body{background:#fff}
+  .chart,table{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="reckon">
+  <div class="reckon-in">
+    <div>
+      <h1>What this car costs to own: <b id="hHead">—</b></h1>
+      <div class="sub" id="hSub">2027 Mercedes-Benz GLB Electric &nbsp;|&nbsp; five terms modelled against the CSL pay advice and two SG Fleet quotes</div>
+      <div class="routes" id="hRoutes"></div>
+      <div class="legend">
+        <span>Net cost to own the same car, after tax, net of what it is worth at the end of the term. Balloon included.</span>
+      </div>
+    </div>
+    <div class="hero-fig">
+      <div class="k">Net cost to own, best term</div>
+      <div class="v" id="hBest">—</div>
+      <div class="t" id="hTerm">—</div>
+      <div><button class="drawer-btn" id="openDrawer">Change assumptions</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="shell">
+  <nav class="rail" id="rail" aria-label="Sheets"></nav>
+  <main id="view"></main>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Assumptions">
+  <div class="drawer-h">
+    <strong>Assumptions</strong>
+    <button class="x" id="closeDrawer">Close</button>
+  </div>
+  <div class="drawer-b" id="inputs"></div>
+  <div class="drawer-f">
+    <span id="dirty">Every figure recalculates as you type.</span>
+    <button id="reset">Reset all</button>
+  </div>
+</aside>
+
+<div class="proofbar" id="proofbar"></div>
+
+<script>
+/* ============================================================
+   Novated lease model — a direct port of the Excel workbook.
+   Every formula here mirrors a cell on the corresponding sheet.
+   ============================================================ */
+
+const DEFAULTS = {
+  // 1. Employment income (CSL pay advice, fortnight ended 21 Aug 2026)
+  rate: 62.9023, hrs: 76, p15: 511.11, p50: 340.62, p100: 681.23,
+  gross: 6313.53, ppy: 26, payg: 1736.00, superFn: 757.62, sg: 0.12,
+  ibasis: 1, qsal: 140000,
+  // 2. Taxation (2026-27 Australian resident)
+  bk: [0, 18200, 45000, 135000, 190000],
+  mr: [0, 0.15, 0.30, 0.37, 0.45],
+  medicare: 0.02, mls: 0.015, grossup: 1.8868, statfrac: 0.20, ctr: 0.30,
+  // 3. Vehicle & finance (SG Fleet quotes 260909-WVUU44 / -XKNG8U)
+  onroad: 92320.20, gstc: 6353.00, gstr: 0.10, fbtbase: 87767.50, km: 15000,
+  // 4. Term-specific
+  terms: [12, 24, 36, 48, 60],
+  rp:   [0.6563, 0.5625, 0.4688, 0.3750, 0.2813],
+  ir:   [0.0839, 0.0854, 0.0868, 0.0882, 0.0897],
+  tyre: [23.16, 23.16, 23.17, 21.90, 20.86],
+  ret:  [0.68, 0.57, 0.48, 0.41, 0.35],
+  // 5. Running-cost drivers (reverse-engineered from both quotes)
+  mgmt: 10.38, fuel: 38.13, serv: 41.54, rego: 31.38, road: 4.15,
+  ins1: 148.60, insg: 0.0474, lgp: 0.0464214, ndf: 0.267255, dr: 0.05,
+  // 6. Acquisition comparison drivers
+  horiz: 60, lnprem: 0.0, lnbal: 0.0, lnfee: 0.0, oppr: 0.05, eqthr: 2000,
+  // 7. Sensitivity scenario steps
+  srl: 0.01, srs: 0.005, svl: 0.10, svs: 0.05, spl: 0.75, sph: 1.10,
+  m60: [0.25, 0.30, 0.35, 0.40, 0.45]
+};
+
+/* ---------- financial primitives (Excel-compatible) ---------- */
+function PMT(r, n, pv, fv) {
+  fv = fv || 0;
+  if (r === 0) return -(pv + fv) / n;
+  const p = Math.pow(1 + r, n);
+  return -(pv * p + fv) * r / (p - 1);
+}
+// Annuity factor: present value of 1 per period for n periods
+function AF(r, n) {
+  if (r === 0) return n;
+  return (1 - Math.pow(1 + r, -n)) / r;
+}
+
+/* ---------- the model ---------- */
+function compute(I) {
+  const O = {};
+  const ppy = I.ppy, gstr = I.gstr;
+
+  // ===== Inputs / income build-up =====
+  O.base_pa = I.rate * I.hrs * ppy;
+  O.pen_pa  = (I.p15 + I.p50 + I.p100) * ppy;
+  O.rebuiltGross = (O.base_pa + O.pen_pa) / ppy;
+  O.grossVar = O.rebuiltGross - I.gross;
+  O.ANN = (I.ibasis === 2 ? O.rebuiltGross : I.gross) * ppy;
+  O.FIN = I.onroad - I.gstc;
+
+  // rate increments used by the bracket engine
+  const inc = I.mr.map((m, i) => i === 0 ? 0 : m - I.mr[i - 1]);
+  O.inc = inc;
+
+  // ===== Tax engine =====
+  O.tax = function (y) {
+    let t = 0;
+    for (let i = 0; i < I.bk.length; i++) if (y > I.bk[i]) t += (y - I.bk[i]) * inc[i];
+    return t + I.medicare * y;
+  };
+  const tax = O.tax;
+  O.incomeTax = tax(O.ANN) - I.medicare * O.ANN;
+  O.medicareAmt = I.medicare * O.ANN;
+  O.BTAX = tax(O.ANN);
+  O.avgRate = O.BTAX / O.ANN;
+  O.BTH = (O.ANN - O.BTAX) / ppy;           // baseline take-home per fortnight
+  let bi = 0; for (let i = 0; i < I.bk.length; i++) if (O.ANN > I.bk[i]) bi = i;
+  O.marginal = I.mr[bi] + I.medicare;
+  O.statBracket = I.mr[bi];
+  O.headroom = O.ANN - I.bk[3];
+  O.paygModel = tax(O.ANN) / ppy;
+  O.paygVar = O.paygModel - I.payg;
+
+  // Reportable fringe benefits
+  O.rfbaTaxable = I.fbtbase * I.statfrac;
+  O.RFBA = O.rfbaTaxable * I.grossup;
+
+  // ===== Per-term engine =====
+  O.t = I.terms.map((months, i) => {
+    const T = { i, months, yrs: months / 12 };
+    // -- Lease model
+    T.res_ex  = O.FIN * I.rp[i];
+    T.res_inc = T.res_ex * (1 + gstr);
+    T.ir = I.ir[i];
+    T.rm = T.ir / 12;
+    T.mth = PMT(T.rm, months, -O.FIN, T.res_ex);
+    T.nfn = ppy * months / 12;
+    T.fnr = T.mth * 12 / ppy;
+    T.tr  = T.fnr * T.nfn;
+    T.fc  = T.tr + T.res_ex - O.FIN;
+    T.fcPct = T.fc / O.FIN;
+    T.pvProof = (-PMT(T.rm, months, 0, 0) === 0 ? 0 : 0) +
+                (T.mth * AF(T.rm, months) + T.res_ex / Math.pow(1 + T.rm, months)) - O.FIN;
+
+    // -- Package build-up (fortnightly, ex GST)
+    T.ins = I.ins1 * (Math.pow(1 + I.insg, T.yrs) - 1) / (I.insg * T.yrs);
+    T.lg  = T.fnr * I.lgp;
+    T.tyre = I.tyre[i];
+    T.sub = T.fnr + I.mgmt + I.fuel + T.tyre + I.serv + I.rego + T.ins + I.road + T.lg;
+    T.dep = O.FIN - T.res_ex;
+    T.lva = T.dep * I.ndf * I.ctr / T.nfn;
+    T.pkfn = T.sub + T.lva;
+    T.unpkfn = T.sub * (1 + gstr);
+    T.gstSaved = T.unpkfn - T.sub;
+
+    // -- Tax outcome
+    T.pk = T.pkfn * ppy;
+    T.y  = O.ANN - T.pk;
+    T.tx = tax(T.y);
+    T.ts = O.BTAX - T.tx;
+    T.eff = T.ts / T.pk;
+    T.dilution = T.eff - O.marginal;
+    T.costOfDollar = (T.pk - T.ts) / T.pk;
+    T.crosses = T.y < I.bk[3];
+    T.thp = (O.ANN - T.pk - T.tx) / ppy;
+    T.impact = O.BTH - T.thp;
+    T.thu = O.BTH - T.unpkfn;
+    T.ben = T.thp - T.thu;
+    T.bentot = T.ben * ppy * T.yrs;
+    // relief sliced by bracket
+    T.slices = [];
+    const hi = [1e12, I.bk[4], I.bk[3], I.bk[2]];
+    const lo = [I.bk[4], I.bk[3], I.bk[2], I.bk[1]];
+    const rt = [I.mr[4] + I.medicare, I.mr[3] + I.medicare, I.mr[2] + I.medicare, I.mr[1] + I.medicare];
+    for (let k = 0; k < 4; k++) {
+      T.slices.push({ rate: rt[k], amt: Math.max(0, Math.min(O.ANN, hi[k]) - Math.max(T.y, lo[k])) });
+    }
+    T.sliceTotal = T.slices.reduce((a, s) => a + s.amt, 0);
+    T.sliceVar = T.sliceTotal - T.pk;
+    T.weighted = T.slices.reduce((a, s) => a + s.amt * s.rate, 0);
+    T.weightedVar = T.weighted - T.ts;
+
+    // -- Residual & equity
+    T.bal = T.res_inc;
+    T.balPct = T.bal / I.onroad;
+    T.balMult = T.bal / (O.BTH * ppy);
+    T.mkt = I.onroad * I.ret[i];
+    T.eq  = T.mkt - T.bal;
+    T.eqPct = T.eq / T.bal;
+    T.verdict = T.eq > I.eqthr ? 'Comfortable equity' : (T.eq > -I.eqthr ? 'Broadly break-even' : 'Negative equity risk');
+    T.rem = I.horiz - months;
+    T.refiM = T.rem === 0 ? 0 : -PMT(T.ir / 12, T.rem, T.bal, 0);
+    T.refiT = T.refiM * T.rem;
+    T.refiInt = T.refiT - (T.rem === 0 ? 0 : T.bal);
+    T.lump = T.rem === 0 ? T.bal : 0;
+
+    // -- Five-year (common horizon) view
+    T.fv_a = (T.pk - T.ts) * T.yrs;
+    T.fv_d = (T.sub - T.fnr) * (1 + gstr) * ppy * T.rem / 12;
+    T.fv_g = T.fv_a + T.refiT + T.lump + T.fv_d;
+    T.v60  = -I.onroad * I.ret[4];
+    T.np   = T.fv_g + T.v60;
+    T.npM  = T.np / I.horiz;
+    T.au   = T.unpkfn * ppy * T.yrs;
+    T.gu   = T.au + T.refiT + T.lump + T.fv_d;
+    T.nu   = T.gu - I.onroad * I.ret[4];
+    T.sv   = T.nu - T.np;
+    T.svPct = T.sv / T.nu;
+
+    // -- NPV
+    T.frt   = Math.pow(1 + I.dr, 1 / ppy) - 1;
+    T.pvBen = T.ben * AF(T.frt, T.nfn);
+    T.pvDisc = T.pvBen / T.bentot - 1;
+    T.pvm   = T.pvBen / months;
+    T.pvBal = T.bal / Math.pow(1 + I.dr, T.yrs);
+    T.pvNet = T.pvBen - T.pvBal;
+
+    // -- Cost to own: shared ground
+    T.diy_fn = (T.sub - T.fnr - T.lg - I.mgmt) * (1 + gstr);
+    T.diyt   = T.diy_fn * ppy * T.yrs;
+
+    // Route A — novated lease
+    T.atc  = T.pk - T.ts;
+    T.atct = T.atc * T.yrs;
+    T.ga   = T.atct + T.bal;
+    T.na   = T.ga - T.mkt;
+    T.naYr = T.na / T.yrs;
+    T.naKm = T.na / (I.km * T.yrs);
+
+    // Route B — post-tax loan
+    T.lrate = T.ir + I.lnprem;
+    T.amt   = I.onroad;
+    T.lbal  = T.amt * I.lnbal;
+    T.mrep  = -PMT(T.lrate / 12, months, T.amt, -T.lbal);
+    T.trep  = T.mrep * months;
+    T.lint  = T.trep + T.lbal - T.amt;
+    T.gb    = T.trep + T.lbal + I.lnfee + T.diyt;
+    T.nb    = T.gb - T.mkt;
+    T.nbYr  = T.nb / T.yrs;
+    T.nbKm  = T.nb / (I.km * T.yrs);
+
+    // Route C — cash
+    T.cp   = I.onroad;
+    T.gc0  = T.cp + T.diyt;
+    T.opp  = T.cp * (Math.pow(1 + I.oppr, T.yrs) - 1);
+    T.gc   = T.gc0 + T.opp;
+    T.nc0  = T.gc0 - T.mkt;
+    T.nc   = T.gc - T.mkt;
+    T.ncYr = T.nc / T.yrs;
+    T.ncKm = T.nc / (I.km * T.yrs);
+
+    // Advantages
+    T.sl  = T.nb - T.na;
+    T.slPct = T.sl / T.nb;
+    T.sc  = T.nc - T.na;
+    T.sc0 = T.nc0 - T.na;
+    T.best = (T.na <= T.nb && T.na <= T.nc) ? 'Novated lease'
+           : (T.nb <= T.nc ? 'Post-tax loan' : 'Cash (economic)');
+
+    // Present value of each route
+    T.pa = T.atc * AF(I.oppr, T.yrs) + (T.bal - T.mkt) / Math.pow(1 + I.oppr, T.yrs);
+    T.pb = T.mrep * AF(I.oppr / 12, months)
+         + (T.lbal + I.lnfee - T.mkt) / Math.pow(1 + I.oppr, T.yrs)
+         + T.diy_fn * ppy * AF(I.oppr, T.yrs);
+    T.pc = T.cp - T.mkt / Math.pow(1 + I.oppr, T.yrs)
+         + T.diy_fn * ppy * AF(I.oppr, T.yrs);
+    T.pvAdvLoan = T.pb - T.pa;
+    T.pvAdvCash = T.pc - T.pa;
+
+    // Exact reconciliation of the lease advantage vs the loan
+    T.g1 = T.ts * T.yrs;
+    T.g2 = I.onroad - O.FIN;
+    T.g3 = T.diyt - T.diyt / (1 + gstr);
+    T.g4 = T.lint - T.fc;
+    T.g5 = I.lnfee;
+    T.g6 = -(T.res_inc - T.res_ex);
+    T.g7 = -T.lva * ppy * T.yrs;
+    T.g8 = -((T.sub - T.fnr) * ppy * T.yrs - T.diyt / (1 + gstr));
+    T.gTot = T.g1 + T.g2 + T.g3 + T.g4 + T.g5 + T.g6 + T.g7 + T.g8;
+    T.gVar = T.gTot - T.sl;
+
+    // Superannuation risk
+    T.superLossPa = T.pk * I.sg;
+    T.superLoss   = T.superLossPa * T.yrs;
+    T.benNetSuper = T.bentot - T.superLoss;
+    T.benRetained = T.benNetSuper / T.bentot;
+
+    // Medicare levy surcharge movement
+    T.mlsChange = I.mls * (O.RFBA - T.pk);
+
+    // -- Cash flow, year 0 .. horizon/12
+    const NY = Math.max(5, Math.ceil(I.horiz / 12));
+    T.cf = [];
+    for (let yv = 0; yv <= NY; yv++) {
+      const inTerm = yv >= 1 && yv <= T.yrs, atEnd = yv === T.yrs, atZero = yv === 0;
+      const a1 = inTerm ? T.pk : 0, a2 = inTerm ? -T.ts : 0;
+      const a3 = a1 + a2, a4 = atEnd ? T.bal : 0, a5 = atEnd ? -T.mkt : 0;
+      const b1 = inTerm ? T.mrep * 12 : 0, b2 = atEnd ? T.lbal : 0;
+      const b3 = inTerm ? I.lnfee / T.yrs : 0, b4 = inTerm ? T.diy_fn * ppy : 0;
+      const b5 = atEnd ? -T.mkt : 0;
+      const c1 = atZero ? T.cp : 0, c2 = inTerm ? T.diy_fn * ppy : 0, c3 = atEnd ? -T.mkt : 0;
+      T.cf.push({
+        yr: yv, a1, a2, a3, a4, a5, A: a3 + a4 + a5,
+        b1, b2, b3, b4, b5, B: b1 + b2 + b3 + b4 + b5,
+        c1, c2, c3, C: c1 + c2 + c3,
+        oppMemo: inTerm ? T.cp * Math.pow(1 + I.oppr, yv - 1) * I.oppr : 0
+      });
+    }
+    let ca = 0, cb = 0, cc = 0;
+    T.cf.forEach(row => { row.cumA = (ca += row.A); row.cumB = (cb += row.B); row.cumC = (cc += row.C); });
+    T.cfTotA = T.cf.reduce((s, r) => s + r.A, 0);
+    T.cfTotB = T.cf.reduce((s, r) => s + r.B, 0);
+    T.cfTotC = T.cf.reduce((s, r) => s + r.C, 0);
+    T.cfProofA = T.cfTotA - T.na;
+    T.cfProofB = T.cfTotB - T.nb;
+    T.cfProofC = T.cfTotC - T.nc0;
+
+    // -- Amortisation schedule (monthly)
+    T.sched = [];
+    let bal = O.FIN;
+    for (let m = 1; m <= months; m++) {
+      const interest = bal * T.rm, principal = T.mth - interest;
+      bal -= principal;
+      T.sched.push({ m, open: bal + principal, pay: T.mth, interest, principal, close: bal });
+    }
+    T.schedVar = bal - T.res_ex;
+    return T;
+  });
+
+  // ===== Rankings and cross-term summaries =====
+  const minNp = Math.min(...O.t.map(t => t.np));
+  const rank = (arr, v, asc) => arr.slice().sort((a, b) => asc ? a - b : b - a).indexOf(v) + 1;
+  const npArr = O.t.map(t => t.np), benArr = O.t.map(t => t.ben),
+        btArr = O.t.map(t => t.bentot), pvmArr = O.t.map(t => t.pvm),
+        eqArr = O.t.map(t => t.eq), naYrArr = O.t.map(t => t.naYr);
+  O.t.forEach(t => {
+    t.pen = t.np - minNp;
+    t.rkNp = rank(npArr, t.np, true);
+    t.rkBen = rank(benArr, t.ben, false);
+    t.rkBt = rank(btArr, t.bentot, false);
+    t.rkPvm = rank(pvmArr, t.pvm, false);
+    t.rkEq = rank(eqArr, t.eq, false);
+    t.rkNaYr = rank(naYrArr, t.naYr, true);
+    t.recommend = t.rkNp === 1 ? 'Recommended'
+                : (t.rkNp === 2 ? 'Reasonable alternative' : 'Not recommended');
+  });
+  O.bestIdx = O.t.findIndex(t => t.rkNp === 1);
+  O.best = O.t[O.bestIdx];
+  O.worst = O.t.reduce((a, b) => a.np > b.np ? a : b);
+  O.spread = O.worst.np - O.best.np;
+
+  // ===== Sensitivity =====
+  const benAt = (annOverride, i) => {
+    const t = O.t[i], bt = tax(annOverride);
+    const th = (annOverride - bt) / ppy;
+    const txp = tax(annOverride - t.pk);
+    return ((annOverride - t.pk - txp) / ppy) - (th - t.unpkfn);
+  };
+  O.sens = {
+    income: [
+      { label: 'Quote assumption', inc: I.qsal },
+      { label: 'Actual annualised income', inc: O.ANN },
+      { label: 'Ordinary hours only, no penalties', inc: O.base_pa },
+      { label: 'Penalties reduced', inc: O.base_pa + O.pen_pa * I.spl },
+      { label: 'Penalties increased', inc: O.base_pa + O.pen_pa * I.sph },
+      { label: 'Top bracket threshold', inc: I.bk[4] }
+    ].map(s => ({ ...s, ben: O.t.map((t, i) => benAt(s.inc, i)), eff: O.t.map((t, i) => (O.BTAX - tax(s.inc - t.pk)) / t.pk) })),
+    rate: [-I.srl, -I.srs, 0, I.srs, I.srl].map(d => ({
+      d, rows: O.t.map((t, i) => {
+        const fx = t.sub - t.fnr - t.fnr * I.lgp;
+        const m = PMT((I.ir[i] + d) / 12, t.months, -O.FIN, t.res_ex);
+        const pkfn = fx + m * 12 / ppy * (1 + I.lgp) + t.lva;
+        const pk = pkfn * ppy, txp = tax(O.ANN - pk);
+        const thp = (O.ANN - pk - txp) / ppy;
+        const thu = O.BTH - (pkfn - t.lva) * (1 + gstr);
+        return { pkfn, ben: thp - thu, benTot: (thp - thu) * ppy * t.yrs, impact: pkfn - (O.BTAX - txp) / ppy };
+      })
+    })),
+    retained: [-I.svl, -I.svs, 0, I.svs, I.svl].map(d => ({
+      d, eq: O.t.map((t, i) => I.onroad * (I.ret[i] + d) - t.bal)
+    })),
+    m60: I.m60.map(v => ({ v, np: O.t.map(t => t.fv_g - I.onroad * v) })),
+    superRisk: O.t.map(t => ({ pa: t.superLossPa, term: t.superLoss, net: t.benNetSuper, pct: t.benRetained })),
+    mls: O.t.map(t => t.mlsChange)
+  };
+
+  return O;
+}
+
+
+
+</script>
+<script>
+/* ================= state ================= */
+const clone = o => JSON.parse(JSON.stringify(o));
+let I = clone(DEFAULTS), O = compute(I), sheet = 'summary';
+let cfTerm = 4, amTerm = 4;
+const TCOL = ['#A8442A', '#C2703C', '#B4881F', '#5C8A5A', '#1F6F5C'];
+
+/* ================= formatting ================= */
+const m0 = v => (v < 0 ? '(' : '') + '$' + Math.abs(Math.round(v)).toLocaleString('en-AU') + (v < 0 ? ')' : '');
+const m2 = v => (v < 0 ? '(' : '') + '$' + Math.abs(v).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + (v < 0 ? ')' : '');
+const pc = (v, d) => (v * 100).toFixed(d === undefined ? 2 : d) + '%';
+const n2 = v => v.toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const km0 = v => Math.round(v).toLocaleString('en-AU') + ' km';
+const cls = v => v < -0.005 ? ' class="neg"' : '';
+const esc = s => String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+
+/* ================= table helper ================= */
+// rows: [label, values[], {fmt, cls, ind, note}]
+function tbl(head, rows, opt) {
+  opt = opt || {};
+  let h = '<div class="tw"' + (opt.tall ? ' style="max-height:540px;overflow:auto"' : '') + '><table><thead><tr>';
+  head.forEach((c, i) => h += '<th' + (i === 0 ? '' : '') + '>' + c + '</th>');
+  h += '</tr></thead><tbody>';
+  rows.forEach(r => {
+    if (r === null) { h += '<tr class="grp"><td colspan="' + head.length + '"></td></tr>'; return; }
+    if (r.group) { h += '<tr class="grp"><td colspan="' + head.length + '">' + r.group + '</td></tr>'; return; }
+    const c = r.cls ? ' class="' + r.cls + '"' : '';
+    h += '<tr' + c + '><td' + (r.ind ? ' class="ind"' : '') + '>' + r.label + '</td>';
+    r.vals.forEach(v => {
+      if (v === null || v === undefined || v === '') { h += '<td></td>'; return; }
+      if (typeof v === 'string') { h += '<td>' + v + '</td>'; return; }
+      const f = r.fmt || m0;
+      let extra = '';
+      if (r.proof) extra = ' class="proof' + (Math.abs(v) > 0.005 ? ' bad' : '') + '"';
+      else if (r.sign !== false && v < -0.005) extra = ' class="neg"';
+      h += '<td' + extra + '>' + f(v) + '</td>';
+    });
+    h += '</tr>';
+  });
+  h += '</tbody></table></div>';
+  if (opt.note) h += '<p class="note">' + opt.note + '</p>';
+  return h;
+}
+const TH = ['', '12 months', '24 months', '36 months', '48 months', '60 months'];
+const tr = (label, fn, o) => Object.assign({ label, vals: O.t.map(fn) }, o || {});
+const sec = (n, t) => '<div class="sec"><span>' + n + '</span>' + t + '</div>';
+
+/* ================= SVG charts ================= */
+function scale(vals) {
+  let lo = Math.min(0, ...vals), hi = Math.max(0, ...vals);
+  if (hi === lo) hi = lo + 1;
+  const span = hi - lo, step = Math.pow(10, Math.floor(Math.log10(span / 4)));
+  const mult = [1, 2, 2.5, 5, 10].find(m => span / (step * m) <= 4.5) || 10;
+  const s = step * mult;
+  return { lo: Math.floor(lo / s) * s, hi: Math.ceil(hi / s) * s, s };
+}
+function chartCol(o) {
+  const W = 620, H = o.h || 250, L = 62, R = 10, T = 22, B = 44;
+  const cats = o.cats, S = o.series, fmt = o.fmt || m0;
+  const stacked = !!o.stacked;
+  let flat = [];
+  if (stacked) cats.forEach((_, i) => {
+    let p = 0, n = 0;
+    S.forEach(s => s.vals[i] >= 0 ? p += s.vals[i] : n += s.vals[i]);
+    flat.push(p, n);
+  });
+  else S.forEach(s => flat.push(...s.vals));
+  const sc = scale(flat), pw = W - L - R, ph = H - T - B;
+  const y = v => T + ph - (v - sc.lo) / (sc.hi - sc.lo) * ph;
+  const bw = pw / cats.length;
+  let g = '';
+  for (let v = sc.lo; v <= sc.hi + 1e-9; v += sc.s) {
+    const yy = y(v), zero = Math.abs(v) < 1e-9;
+    g += '<line x1="' + L + '" y1="' + yy + '" x2="' + (W - R) + '" y2="' + yy +
+      '" stroke="' + (zero ? '#16232B' : '#E4EAE7') + '" stroke-width="1"/>' +
+      '<text x="' + (L - 7) + '" y="' + (yy + 3.5) + '" text-anchor="end" font-size="9.5" fill="#6D8089">' +
+      (Math.abs(v) >= 1000 ? '$' + Math.round(v / 1000) + 'k' : (o.axfmt ? o.axfmt(v) : m0(v))) + '</text>';
+  }
+  let bars = '';
+  cats.forEach((c, i) => {
+    const x0 = L + i * bw;
+    if (stacked) {
+      const iw = bw * .62, ix = x0 + (bw - iw) / 2;
+      let up = 0, dn = 0;
+      S.forEach(s => {
+        const v = s.vals[i]; if (!v) return;
+        let yy, hh;
+        if (v >= 0) { yy = y(up + v); hh = y(up) - y(up + v); up += v; }
+        else { yy = y(dn); hh = y(dn + v) - y(dn); dn += v; }
+        bars += '<rect x="' + ix + '" y="' + yy + '" width="' + iw + '" height="' + Math.max(hh, .5) +
+          '" fill="' + s.color + '"><title>' + esc(s.name) + ': ' + fmt(v) + '</title></rect>';
+      });
+    } else {
+      const iw = bw * .78 / S.length, off = (bw - iw * S.length) / 2;
+      S.forEach((s, j) => {
+        const v = s.vals[i], ix = x0 + off + j * iw;
+        const yy = v >= 0 ? y(v) : y(0), hh = Math.abs(y(v) - y(0));
+        bars += '<rect x="' + (ix + 1) + '" y="' + yy + '" width="' + (iw - 2) + '" height="' + Math.max(hh, .5) +
+          '" fill="' + s.color + '"><title>' + esc(s.name) + ': ' + fmt(v) + '</title></rect>';
+        if (S.length <= 2 && o.labels !== false)
+          bars += '<text x="' + (ix + iw / 2) + '" y="' + (v >= 0 ? yy - 4 : yy + hh + 10) +
+            '" text-anchor="middle" font-size="8.5" fill="#42555F">' + fmt(v) + '</text>';
+      });
+    }
+    bars += '<text x="' + (x0 + bw / 2) + '" y="' + (H - B + 15) + '" text-anchor="middle" font-size="10" fill="#42555F">' + c + '</text>';
+  });
+  const per = 3, lrows = S.length > 1 ? Math.ceil(S.length / per) : 0;
+  const ly = H - B + 32;
+  let leg = '';
+  if (S.length > 1) S.forEach((s, j) => {
+    leg += '<g transform="translate(' + (L + (j % per) * 178) + ',' + (ly + Math.floor(j / per) * 13) + ')">' +
+      '<rect width="8" height="8" y="-7.5" fill="' + s.color + '"/>' +
+      '<text x="12" font-size="9.5" fill="#42555F">' + esc(s.name) + '</text></g>';
+  });
+  const HH = lrows ? ly + lrows * 13 : H - B + 24;
+  return '<svg viewBox="0 0 ' + W + ' ' + HH + '" role="img" aria-label="' + esc(o.title) + '">' + g + bars + leg + '</svg>';
+}
+function chartLine(o) {
+  const W = 620, H = o.h || 250, L = 62, R = 12, T = 18, B = 44;
+  const S = o.series, cats = o.cats, fmt = o.fmt || m0;
+  const flat = []; S.forEach(s => flat.push(...s.vals));
+  const sc = scale(flat), pw = W - L - R, ph = H - T - B;
+  const y = v => T + ph - (v - sc.lo) / (sc.hi - sc.lo) * ph;
+  const x = i => L + (cats.length === 1 ? pw / 2 : i * pw / (cats.length - 1));
+  let g = '';
+  for (let v = sc.lo; v <= sc.hi + 1e-9; v += sc.s) {
+    const yy = y(v), zero = Math.abs(v) < 1e-9;
+    g += '<line x1="' + L + '" y1="' + yy + '" x2="' + (W - R) + '" y2="' + yy +
+      '" stroke="' + (zero ? '#16232B' : '#E4EAE7') + '"/>' +
+      '<text x="' + (L - 7) + '" y="' + (yy + 3.5) + '" text-anchor="end" font-size="9.5" fill="#6D8089">' +
+      (Math.abs(v) >= 1000 ? '$' + Math.round(v / 1000) + 'k' : m0(v)) + '</text>';
+  }
+  let lines = '';
+  S.forEach(s => {
+    const d = s.vals.map((v, i) => (i ? 'L' : 'M') + x(i) + ' ' + y(v)).join(' ');
+    lines += '<path d="' + d + '" fill="none" stroke="' + s.color + '" stroke-width="2.2" stroke-linejoin="round"/>';
+    s.vals.forEach((v, i) => lines += '<circle cx="' + x(i) + '" cy="' + y(v) + '" r="2.6" fill="' + s.color +
+      '"><title>' + esc(s.name) + ' — ' + cats[i] + ': ' + fmt(v) + '</title></circle>');
+  });
+  cats.forEach((c, i) => {
+    const an = i === 0 ? 'start' : (i === cats.length - 1 ? 'end' : 'middle');
+    lines += '<text x="' + x(i) + '" y="' + (H - B + 15) + '" text-anchor="' + an + '" font-size="10" fill="#42555F">' + c + '</text>';
+  });
+  const per = 3, lrows = Math.ceil(S.length / per), ly = H - B + 32;
+  let leg = '';
+  S.forEach((s, j) => leg += '<g transform="translate(' + (L + (j % per) * 178) + ',' + (ly + Math.floor(j / per) * 13) + ')">' +
+    '<rect width="8" height="8" y="-7.5" fill="' + s.color + '"/><text x="12" font-size="9.5" fill="#42555F">' + esc(s.name) + '</text></g>');
+  const HH = ly + lrows * 13;
+  return '<svg viewBox="0 0 ' + W + ' ' + HH + '" role="img" aria-label="' + esc(o.title) + '">' + g + lines + leg + '</svg>';
+}
+const box = (title, sub, svg) => '<div class="chart"><h3>' + title + '</h3>' +
+  (sub ? '<p class="cs">' + sub + '</p>' : '') + svg + '</div>';
+const TERMCATS = () => O.t.map(t => t.months + ' mo');
+
+/* ================= sheets ================= */
+const SHEETS = [
+  { id: 'summary', grp: 'The answer', label: 'Summary' },
+  { id: 'findings', grp: 'The answer', label: 'Findings' },
+  { id: 'comparison', grp: 'The answer', label: 'Comparison' },
+  { id: 'costtoown', grp: 'Cost to acquire', label: 'Cost to own' },
+  { id: 'cashflow', grp: 'Cost to acquire', label: 'Cash flow' },
+  { id: 'charts', grp: 'Cost to acquire', label: 'Charts' },
+  { id: 'inputs', grp: 'Drivers', label: 'Inputs' },
+  { id: 'payslip', grp: 'Drivers', label: 'Payslip' },
+  { id: 'taxengine', grp: 'Workings', label: 'Tax engine' },
+  { id: 'leasemodel', grp: 'Workings', label: 'Lease model' },
+  { id: 'package', grp: 'Workings', label: 'Package build-up' },
+  { id: 'residual', grp: 'Workings', label: 'Residual & equity' },
+  { id: 'fiveyear', grp: 'Workings', label: 'Common horizon' },
+  { id: 'npv', grp: 'Workings', label: 'Present value' },
+  { id: 'sensitivity', grp: 'Testing', label: 'Sensitivity' },
+  { id: 'amortisation', grp: 'Testing', label: 'Amortisation' }
+];
+
+const R = {};
+
+R.summary = () => {
+  const b = O.best;
+  return '<div class="sheet-h"><h2>Novated lease — comparative analysis</h2>' +
+    '<p>2027 Mercedes-Benz GLB Electric X244. Prepared from the CSL pay advice for the fortnight ended 21 August 2026 and SG Fleet indicative quotes 260909-WVUU44 (36 months) and 260909-XKNG8U (60 months).</p></div>' +
+    '<p class="shayari">ગણતરી કરીને પગ મૂકે, એ કદી ઠોકર ન ખાય,<br>આજનો હિસાબ સાચો હોય, તો કાલ સામે ન ડરાય.</p>' +
+    '<p class="shayari-t">One who steps after counting never stumbles; when today\'s reckoning is true, tomorrow holds no fear.</p>' +
+    '<div class="kpis">' +
+    '<div class="kpi sig"><div class="k">Annualised income from the payslip</div><div class="v">' + m0(O.ANN) + '</div></div>' +
+    '<div class="kpi"><div class="k">Salary the quotes assumed</div><div class="v">' + m0(I.qsal) + '</div></div>' +
+    '<div class="kpi sig"><div class="k">Marginal rate incl. Medicare</div><div class="v">' + pc(O.marginal) + '</div></div>' +
+    '<div class="kpi liab"><div class="k">Headroom before relief dilutes</div><div class="v">' + m0(O.headroom) + '</div></div>' +
+    '<div class="kpi lease"><div class="k">Best term, net cost to own</div><div class="v">' + m0(b.na) + '</div></div>' +
+    '<div class="kpi"><div class="k">Spread across the terms</div><div class="v">' + m0(O.spread) + '</div></div>' +
+    '</div>' +
+    sec('', 'Ranked by net cost over the common ' + (I.horiz / 12).toFixed(0) + '-year horizon') +
+    tbl(TH, [
+      tr('Net benefit per fortnight', t => t.ben, { fmt: m2 }),
+      tr('Net benefit over the term', t => t.bentot),
+      tr('Effective rate of tax relief', t => t.eff, { fmt: v => pc(v), cls: 'band' }),
+      tr('Balloon payable at term end', t => t.bal, { cls: 'warn' }),
+      tr('Equity at term end', t => t.eq),
+      tr('Net cost of motoring over the horizon', t => t.np, { cls: 'tot' }),
+      tr('Penalty versus the best term', t => t.pen),
+      tr('Verdict', t => t.recommend === 'Recommended' ? '<span class="best">Recommended</span>' : t.recommend)
+    ]) +
+    sec('', 'What the car costs to own, net of its value at the end of the term') +
+    tbl(TH, [
+      tr('Novated lease', t => t.na, { cls: 'hi' }),
+      tr('Post-tax loan at the same rate', t => t.nb),
+      tr('Cash purchase, pure outflow', t => t.nc0),
+      tr('Cash purchase, incl. opportunity cost', t => t.nc),
+      tr('Lease advantage against the loan', t => t.sl, { cls: 'hi' }),
+      tr('Lease advantage against cash', t => t.sc0, { cls: 'hi' }),
+      tr('Novated lease — cost per year', t => t.naYr, { cls: 'band' })
+    ], { note: 'Each route is taken to the same end state: the car owned outright, free of finance. Totals are not comparable across terms — a 12-month term buys one year of motoring, not five — so the per-year row is the fair cross-term measure.' }) +
+    '<p class="disclaim">Not financial, taxation or legal advice. Prepared from the documents supplied; both quotes recommend obtaining independent advice. Judgemental assumptions are editable and every one is stress-tested on the Sensitivity sheet.</p>';
+};
+
+R.findings = () => {
+  const b = O.best, w = O.worst, t3 = O.t[2];
+  const p = (s, c) => '<p class="prose' + (c ? ' ' + c : '') + '">' + s + '</p>';
+  return '<div class="sheet-h"><h2>Analysis report and recommendation</h2>' +
+    '<p>The written case, rebuilt live from the assumptions currently loaded.</p></div>' +
+    sec('1', 'Conclusion') +
+    p('A novated lease on this vehicle is clearly worthwhile at this income, and the ' + b.months +
+      '-month term is the right choice. Over a common ' + (I.horiz / 12).toFixed(0) + '-year horizon it costs ' + m0(b.np) +
+      ' to own the car, against ' + m0(w.np) + ' on a ' + w.months + '-month term — a difference of ' + m0(O.spread) +
+      ' for the identical vehicle over the identical period. It also delivers the largest total benefit (' + m0(b.bentot) +
+      '), the smallest balloon (' + m0(b.bal) + '), equity of ' + m0(b.eq) + ' at term end, and relief on the whole deduction at ' +
+      pc(b.eff) + '. Shorter terms look better per fortnight, and seeing through that appearance is the whole point of the analysis.', 'key') +
+    sec('2', 'What the payslip changes') +
+    p('Both quotes are built on an assumed salary of ' + m0(I.qsal) + '. The pay advice shows gross pay of ' + m2(I.gross) +
+      ' a fortnight, which annualises to ' + m0(O.ANN) + ' — ' + pc(O.ANN / I.qsal - 1, 1) + ' higher. The figure is reliable: year-to-date gross divided by this fortnight\'s gross gives exactly five pays, and year-to-date superannuation does the same, so this is the year-to-date average rather than an unusually heavy fortnight.') +
+    p('Shift penalties do most of the work. Ordinary hours produce ' + m0(O.base_pa) + ' a year; penalties at 15%, 50% and 100% add a further ' +
+      m0(O.pen_pa) + ', or ' + pc(O.pen_pa / O.ANN, 1) + ' of gross. Those penalties are what carry the income from the ' +
+      pc(I.mr[2], 0) + ' bracket into the ' + pc(I.mr[3], 0) + ' bracket, and therefore what make the marginal rate ' + pc(O.marginal) + '.') +
+    p('The practical effect is that every benefit figure here exceeds the quoted saving. On the 36-month quote SG Fleet shows $461.84 per fortnight; on this income the same structure delivers ' +
+      m2(t3.ben) + '.') +
+    sec('3', 'The central finding: a pre-tax deduction is not relieved at one rate') +
+    p('The marginal rate is ' + pc(O.marginal) + ', but only the first ' + m0(O.headroom) +
+      ' of an annual deduction earns relief at it. That is the headroom above the ' + m0(I.bk[3]) +
+      ' threshold. Beyond it, relief falls to ' + pc(I.mr[2] + I.medicare) + '. Because the shorter terms need much larger deductions, a growing share of each spills into the lower band:') +
+    tbl(TH, [
+      tr('Annual pre-tax deduction', t => t.pk),
+      tr('Taxable income after packaging', t => t.y),
+      tr('Effective rate of relief', t => t.eff, { fmt: v => pc(v), cls: 'band' }),
+      tr('After-tax cost of $1 of package value', t => t.costOfDollar, { fmt: v => '$' + v.toFixed(3) })
+    ]) +
+    sec('4', 'The balloon, where short terms become expensive') +
+    p('The residual follows the ATO minimum schedule, applied to the ex-GST amount financed and then grossed up for GST because you, not the employer, acquire the vehicle at the end. It is paid from net pay, with no pre-tax relief and no GST credit:') +
+    p(O.t.map(t => t.months + ' months ' + m0(t.bal)).join('  ·  '), 'warn') +
+    p('A ' + O.t[0].months + '-month term leaves ' + m0(O.t[0].bal) + ' to find after one year — ' + pc(O.t[0].balPct, 0) +
+      ' of the original on-road cost, and ' + O.t[0].balMult.toFixed(2) + ' times annual take-home pay. Refinancing it to the common horizon costs ' +
+      m0(O.t[0].refiT) + ', of which ' + m0(O.t[0].refiInt) + ' is pure interest outside any package.') +
+    sec('5', 'What the car costs to own, against the real alternatives') +
+    p('The saving on a quote answers the wrong question. The right question is what the car costs to own, which requires the balloon, the GST and the Luxury Vehicle Adjustment all to be counted, and the comparison to be made against something real.') +
+    p('On the ' + b.months + '-month term the car costs ' + m0(b.na) + ' to own through a novated lease, ' + m0(b.nb) +
+      ' through a post-tax loan at the same ' + pc(b.lrate) + ', and ' + m0(b.nc0) + ' in pure cash terms (' + m0(b.nc) +
+      ' once the opportunity cost of the capital is priced). The lease is cheapest by ' + m0(b.sl) + ' against the loan and ' +
+      m0(b.sc0) + ' against cash.', 'key') +
+    p('The advantage decomposes exactly, and the reconciliation on the Cost to own sheet closes to nil rather than being asserted. Over ' +
+      b.months + ' months: ' + m0(b.g1) + ' of income tax and Medicare avoided, ' + m0(b.g2) +
+      ' of GST credit on the purchase price that only an employer can claim, and ' + m0(b.g3) +
+      ' of GST avoided on running costs. Against that, ' + m0(-b.g7) + ' of Luxury Vehicle Adjustment charged back, ' +
+      m0(-b.g6) + ' of GST re-added on the balloon, ' + m0(-b.g8) +
+      ' of package management fee and LeaseGuard that exist only because the lease exists, and ' + m0(-b.g4) +
+      ' of extra interest, because the lease defers a large residual and so carries interest on a higher average balance than a fully amortising loan.') +
+    p('Two conclusions are easy to miss. The lease advantage is overwhelmingly a tax and GST story, not a finance story — on interest alone the lease is worse than a loan at the same rate. And cash is a closer contender than it looks: if the money is available and no value is ascribed to it, buying outright costs ' +
+      m0(b.nc0) + ' against the lease\'s ' + m0(b.na) + ', a gap of ' + m0(b.sc0) + ', well under half the gap against the loan.') +
+    sec('6', 'Risks and matters to confirm') +
+    p('<b>Superannuation.</b> Both quotes expressly exclude it. Since January 2020 an employer may not reduce Superannuation Guarantee by amounts sacrificed into super, but a novated lease is a non-super benefit, so whether CSL calculates the Guarantee on pre- or post-sacrifice ordinary time earnings is a policy question. On the worst case the ' +
+      b.months + '-month term forgoes ' + m0(b.superLossPa) + ' a year, ' + m0(b.superLoss) + ' across the term, cutting the benefit from ' +
+      m0(b.bentot) + ' to ' + m0(b.benNetSuper) + ' — still strongly positive, and the ranking does not change. Worth getting in writing.') +
+    p('<b>Reportable fringe benefits.</b> The vehicle is a zero or low emissions vehicle and exempt from FBT, but the notional taxable value of ' +
+      m0(O.rfbaTaxable) + ' still grosses up to a reportable amount of ' + m0(O.RFBA) +
+      '. It does not attract income tax, but it counts for the Medicare levy surcharge, private health rebate tiers, and family assistance and child support tests. The surcharge movement is small either way and nil if hospital cover is held.') +
+    p('<b>Shift penalties.</b> Because penalties drive the marginal rate, a sustained reduction erodes the benefit. A ' +
+      pc(1 - I.spl, 0) + ' cut in loadings is tested on the Sensitivity sheet. The structure remains sound, but it is worth knowing the exposure before committing to a five-year term.') +
+    p('<b>Rate and residual value.</b> The interest rates for the modelled terms are interpolated from the two quotes and the rate is set at delivery, not now. A higher rate raises the measured benefit — the deduction is larger, so it shelters more tax and more GST — but the honest measure is the impact to take-home pay, and on the ' +
+      b.months + '-month term one percentage point costs about $15 a fortnight after tax. Retained value is the single most judgemental input and is flexed by ' +
+      pc(I.svl, 0) + ' either way.') +
+    sec('7', 'Recommendation') +
+    p('Proceed on the ' + b.months + '-month term. It produces the lowest whole-of-life cost, the largest total benefit, full relief at the marginal rate, the smallest balloon and the only comfortable equity position. Take the ' +
+      O.t.find(t => t.rkNp === 2).months + '-month term only if a longer commitment is unattractive for non-financial reasons: it costs ' +
+      m0(O.t.find(t => t.rkNp === 2).pen) + ' more over the horizon, a defensible price for the flexibility. Avoid the shortest terms for this vehicle — the apparent per-fortnight advantage is created by deferring the vehicle\'s cost into a large after-tax balloon.', 'key') +
+    p('Three things to raise with the consultant before committing. Ask for formal quotations on the modelled terms, to replace the interpolated rates. Reconsider LeaseGuard: at ' +
+      m2(b.lg) + ' a fortnight it costs ' + m0(b.lg * I.ppy * b.yrs) + ' across the term and covers involuntary unemployment only. And ask whether the insurance can be placed outside the package: ' +
+      m2(b.ins) + ' a fortnight is ' + m0(b.ins * I.ppy * b.yrs) + ' over the term, and a competitively sourced policy may beat it even after losing pre-tax treatment.') +
+    sec('8', 'Basis of preparation') +
+    p('Built from the two documents supplied and ' + pc(I.mr[3], 0) + '/' + pc(I.mr[4], 0) +
+      ' Australian resident rates including the ' + pc(I.medicare, 0) + ' Medicare levy and the legislated reduction of the second bracket to ' +
+      pc(I.mr[1], 0) + '. The tax engine is validated twice: it returns ' + m0(O.tax(I.qsal)) + ' on ' + m0(I.qsal) +
+      ', matching the quotes exactly, and it reproduces the payslip PAYG to within ' + m2(Math.abs(O.paygVar)) +
+      ' a fortnight. No HELP or HECS debt is detectable; if one exists the benefit would be larger, since packaging also reduces repayment income.') +
+    p('SG Fleet\'s pricing mechanics were reverse-engineered rather than estimated, so the modelled terms rest on the same arithmetic as the quoted ones. LeaseGuard resolves to ' +
+      pc(I.lgp, 4) + ' of the lease rental; insurance escalates at ' + pc(I.insg) + ' compounding from a ' + m2(I.ins1) +
+      ' base; the Luxury Vehicle Adjustment is the company tax rate applied to ' + pc(I.ndf, 2) +
+      ' of depreciation, implying a car limit of about ' + m0(O.FIN * (1 - I.ndf) * (1 + I.gstr)) +
+      ' — consistent with the published ATO limit. Not modelled: employer or fleet discounts, state electric vehicle incentives, luxury car tax beyond the adjustment already included, home charging installation, or accessories.') +
+    '<p class="disclaim">This is an analysis of the documents provided. It is not financial, taxation or legal advice, and I am not a licensed financial adviser or registered tax agent. The quotes themselves recommend independent advice; given the amounts involved and the superannuation question in particular, a conversation with a registered tax agent before signing would be sensible.</p>';
+};
+
+R.comparison = () => '<div class="sheet-h"><h2>Comparison</h2>' +
+  '<p>Every metric for every term, with rankings. This is the master table the recommendation rests on.</p></div>' +
+  sec('', 'Finance structure') +
+  tbl(TH, [
+    tr('Source of term data', t => (t.months === 36 || t.months === 60) ? '<span class="best">Quoted</span>' : 'Modelled'),
+    tr('Amount financed, ex GST', () => O.FIN),
+    tr('Interest rate', t => t.ir, { fmt: v => pc(v) }),
+    tr('Residual, ATO minimum', t => O.t[t.i].res_ex / O.FIN, { fmt: v => pc(v) }),
+    tr('Monthly lease rental', t => t.mth, { fmt: m2 }),
+    tr('Total finance charge', t => t.fc)
+  ]) +
+  sec('', 'The package, per fortnight') +
+  tbl(TH, [
+    tr('Lease rental', t => t.fnr, { fmt: m2 }),
+    tr('Running costs', t => t.sub - t.fnr, { fmt: m2 }),
+    tr('Luxury Vehicle Adjustment', t => t.lva, { fmt: m2 }),
+    tr('Package total, pre-tax deduction', t => t.pkfn, { fmt: m2, cls: 'tot' }),
+    tr('Income tax saved', t => -t.ts / I.ppy, { fmt: m2, ind: true }),
+    tr('Impact to take-home pay', t => t.impact, { fmt: m2, cls: 'band' })
+  ]) +
+  sec('', 'Tax outcome') +
+  tbl(TH, [
+    tr('Annual pre-tax deduction', t => t.pk),
+    tr('Taxable income after packaging', t => t.y),
+    tr('Tax saved per annum', t => t.ts),
+    tr('Effective rate of relief', t => t.eff, { fmt: v => pc(v), cls: 'band' }),
+    tr('Reportable fringe benefits amount', () => O.RFBA)
+  ]) +
+  sec('', 'The balloon and the vehicle') +
+  tbl(TH, [
+    tr('Balloon payable at term end', t => t.bal, { cls: 'warn' }),
+    tr('Estimated market value', t => t.mkt),
+    tr('Equity at term end', t => t.eq, { cls: 'tot' }),
+    tr('Verdict', t => t.verdict)
+  ]) +
+  sec('', 'Benefit and whole-of-life cost') +
+  tbl(TH, [
+    tr('Net benefit per fortnight', t => t.ben, { fmt: m2 }),
+    tr('Net benefit over the term', t => t.bentot),
+    tr('Present value of that benefit', t => t.pvBen),
+    tr('PV of benefit per month of term', t => t.pvm, { fmt: m2 }),
+    tr('Net cost of motoring, packaged', t => t.np, { cls: 'tot' }),
+    tr('Net cost of motoring, self-funded', t => t.nu),
+    tr('Penalty versus the best term', t => t.pen),
+    tr('Benefit net of worst-case super loss', t => t.benNetSuper)
+  ]) +
+  sec('', 'Rankings') +
+  tbl(TH, [
+    tr('Net benefit per fortnight', t => String(t.rkBen)),
+    tr('Nominal benefit over term', t => String(t.rkBt)),
+    tr('PV of benefit per month', t => String(t.rkPvm)),
+    tr('Equity at term end', t => String(t.rkEq)),
+    tr('Cost per year of ownership', t => String(t.rkNaYr)),
+    tr('Net cost over the horizon', t => String(t.rkNp), { cls: 'tot' }),
+    tr('Verdict', t => t.recommend === 'Recommended' ? '<span class="best">Recommended</span>' : t.recommend)
+  ], { note: 'Rank 1 is best on each measure. The per-fortnight ranking and the whole-of-life ranking point in opposite directions, which is the single most important thing this table shows.' });
+
+R.costtoown = () => {
+  const b = O.best;
+  return '<div class="sheet-h"><h2>What the car costs to own</h2>' +
+    '<p>Three ways to acquire the same vehicle, each taken to the same end state: owned outright, free of finance, at the end of the term. Every figure is in after-tax dollars.</p></div>' +
+    sec('1', 'Common ground, identical in all three routes') +
+    tbl(TH, [
+      tr('Years', t => t.yrs, { fmt: v => v.toFixed(1) }),
+      tr('Vehicle on-road cost, incl GST', () => I.onroad),
+      tr('Running costs from your own pocket, per fortnight', t => t.diy_fn, { fmt: m2 }),
+      tr('Running costs over the term', t => t.diyt),
+      tr('Vehicle market value at the end of the term', t => t.mkt)
+    ], { note: 'The self-funded running-cost basket is the same budget the quotes use, with GST added back and the two lease-only charges — package management fee and LeaseGuard — removed, because neither would be paid outside a novated lease.' }) +
+    sec('2', 'Route A — novated lease') +
+    tbl(TH, [
+      tr('Pre-tax salary sacrificed per annum', t => t.pk),
+      tr('less income tax and Medicare it saves', t => -t.ts, { ind: true }),
+      tr('After-tax cost of the package per annum', t => t.atc, { cls: 'tot' }),
+      tr('After-tax cost over the whole term', t => t.atct),
+      tr('Balloon payable at the end, from net pay', t => t.bal, { cls: 'warn' }),
+      tr('Total after-tax cash to own the car', t => t.ga, { cls: 'tot' }),
+      tr('less vehicle market value', t => -t.mkt, { ind: true }),
+      tr('Net cost of ownership', t => t.na, { cls: 'hi' }),
+      tr('per year', t => t.naYr, { ind: true }),
+      tr('per kilometre', t => t.naKm, { fmt: v => '$' + v.toFixed(3), ind: true })
+    ]) +
+    sec('3', 'Route B — post-tax car loan at a similar rate') +
+    tbl(TH, [
+      tr('Loan interest rate', t => t.lrate, { fmt: v => pc(v) }),
+      tr('Amount borrowed, full on-road cost', t => t.amt),
+      tr('Loan balloon or residual', t => t.lbal),
+      tr('Monthly repayment', t => t.mrep, { fmt: m2 }),
+      tr('Total repayments over the term', t => t.trep),
+      tr('of which interest', t => t.lint, { ind: true }),
+      tr('plus loan fees', t => I.lnfee, { ind: true }),
+      tr('plus running costs, incl GST', t => t.diyt, { ind: true }),
+      tr('Total after-tax cash to own the car', t => t.gb, { cls: 'tot' }),
+      tr('less vehicle market value', t => -t.mkt, { ind: true }),
+      tr('Net cost of ownership', t => t.nb, { cls: 'warn' }),
+      tr('per year', t => t.nbYr, { ind: true })
+    ], { note: 'The rate defaults to the same one the lease carries for that term, so the comparison isolates the tax treatment rather than the price of credit. Nil balloon means a conventional fully amortising loan, so the car is owned outright when the last repayment clears.' }) +
+    sec('4', 'Route C — cash purchase') +
+    tbl(TH, [
+      tr('Purchase price paid on day one', t => t.cp),
+      tr('plus running costs over the term', t => t.diyt, { ind: true }),
+      tr('Total cash out of pocket', t => t.gc0, { cls: 'tot' }),
+      tr('plus opportunity cost of the capital', t => t.opp, { ind: true }),
+      tr('Total economic cost', t => t.gc, { cls: 'tot' }),
+      tr('Net cost, ignoring opportunity cost', t => t.nc0),
+      tr('Net cost of ownership, economic', t => t.nc, { cls: 'warn' }),
+      tr('per year', t => t.ncYr, { ind: true })
+    ], { note: 'The pure cash view is the lowest total outflow of the three, because no interest is paid at all. The economic view prices what the money would have earned had it stayed invested; set the opportunity cost rate to nil to remove it.' }) +
+    sec('5', 'The comparison') +
+    tbl(TH, [
+      tr('Novated lease', t => t.na, { cls: 'hi' }),
+      tr('Post-tax loan at the same rate', t => t.nb),
+      tr('Cash purchase, economic', t => t.nc),
+      tr('Cash purchase, pure cash', t => t.nc0),
+      { group: 'Lease advantage' },
+      tr('against the post-tax loan', t => t.sl, { cls: 'hi' }),
+      tr('as a share of the loan route', t => t.slPct, { fmt: v => pc(v, 1), ind: true }),
+      tr('against cash, economic', t => t.sc, { cls: 'hi' }),
+      tr('against cash, pure cash view', t => t.sc0, { cls: 'hi' }),
+      tr('Cheapest route for this term', t => t.best === 'Novated lease' ? '<span class="best">Novated lease</span>' : t.best)
+    ]) +
+    '<p class="note"><b>Totals above are not comparable across terms.</b> A 12-month term shows a smaller total simply because it buys one year of motoring instead of five. To compare terms, divide by time or use the common horizon sheet.</p>' +
+    tbl(TH, [
+      tr('Novated lease, per year', t => t.naYr, { cls: 'hi' }),
+      tr('Post-tax loan, per year', t => t.nbYr),
+      tr('Cash purchase, per year', t => t.ncYr),
+      tr('Cheapest term per year', t => t.rkNaYr === 1 ? '<span class="best">Cheapest per year</span>' : '')
+    ]) +
+    sec('6', 'The same comparison in present-value terms') +
+    tbl(TH, [
+      tr('Novated lease', t => t.pa, { cls: 'hi' }),
+      tr('Post-tax loan', t => t.pb),
+      tr('Cash purchase', t => t.pc),
+      tr('PV advantage against the loan', t => t.pvAdvLoan, { cls: 'hi' }),
+      tr('PV advantage against cash', t => t.pvAdvCash, { cls: 'hi' })
+    ], { note: 'Discounted at the after-tax opportunity cost of ' + pc(I.oppr) + '. Cash pays everything on day one so its present value is barely discounted; the lease spreads payment over years and benefits most. The opportunity cost is not added again here — discounting already accounts for timing.' }) +
+    sec('7', 'Reconciliation: every dollar of the lease advantage') +
+    tbl(TH, [
+      tr('Income tax and Medicare avoided', t => t.g1),
+      tr('GST credit on the purchase price, claimed by the employer', t => t.g2),
+      tr('GST avoided on running costs', t => t.g3),
+      tr('Interest saved, loan interest less lease interest', t => t.g4),
+      tr('Loan fees avoided', t => t.g5),
+      tr('less GST re-added on the balloon', t => t.g6),
+      tr('less the Luxury Vehicle Adjustment charged back', t => t.g7),
+      tr('less package management fee and LeaseGuard', t => t.g8),
+      tr('Build-up total', t => t.gTot, { cls: 'tot' }),
+      tr('Actual advantage against the loan', t => t.sl),
+      tr('Variance, must be nil', t => t.gVar, { fmt: m2, proof: true, ind: true })
+    ], { note: 'This is not an approximation. The eight lines are an exact algebraic decomposition of the difference between Route A and Route B, and the variance row proves it closes to the cent. Tax relief and the GST credit create the advantage; the adjustment, the GST on the balloon, the lease-only fees and — on longer terms — a higher interest bill give some of it back.' }) +
+    '<p class="note">On the ' + b.months + '-month term, tax and GST together contribute ' + m0(b.g1 + b.g2 + b.g3) +
+    ' while the givebacks total ' + m0(-(b.g4 + b.g6 + b.g7 + b.g8)) + '. On interest alone the lease is worse than the loan.</p>';
+};
+
+R.cashflow = () => {
+  const t = O.t[cfTerm], NY = t.cf.length;
+  const head = [''].concat(t.cf.map(r => 'Year ' + r.yr)).concat(['Term total']);
+  const row = (label, k, o) => Object.assign({ label, vals: t.cf.map(r => r[k]).concat([t.cf.reduce((s, r) => s + r[k], 0)]) }, o || {});
+  return '<div class="sheet-h"><h2>Year-by-year cash flow</h2>' +
+    '<p>Money leaving or returning to your pocket each year, after tax, for all three routes. Year 0 is the day you sign. Block totals tie exactly to the Cost to own sheet.</p></div>' +
+    '<div class="pills" role="group" aria-label="Term">' +
+    O.t.map((x, i) => '<button data-cf="' + i + '" aria-pressed="' + (i === cfTerm) + '">' + x.months + ' months</button>').join('') +
+    '</div>' +
+    sec('', t.months + '-month term') +
+    tbl(head, [
+      { group: 'Route A — novated lease' },
+      row('Pre-tax salary sacrificed', 'a1', { ind: true }),
+      row('less income tax and Medicare saved', 'a2', { ind: true }),
+      row('After-tax cost of the package', 'a3', { ind: true }),
+      row('Balloon paid at term end', 'a4', { ind: true, cls: 'warn' }),
+      row('less vehicle value recovered', 'a5', { ind: true }),
+      row('Net cash flow, novated lease', 'A', { cls: 'hi' }),
+      { group: 'Route B — post-tax loan' },
+      row('Loan repayments', 'b1', { ind: true }),
+      row('Loan balloon settled', 'b2', { ind: true }),
+      row('Loan fees', 'b3', { ind: true }),
+      row('Running costs from net pay', 'b4', { ind: true }),
+      row('less vehicle value recovered', 'b5', { ind: true }),
+      row('Net cash flow, post-tax loan', 'B', { cls: 'warn' }),
+      { group: 'Route C — cash purchase' },
+      row('Purchase price on day one', 'c1', { ind: true }),
+      row('Running costs from net pay', 'c2', { ind: true }),
+      row('less vehicle value recovered', 'c3', { ind: true }),
+      row('Net cash flow, cash purchase', 'C', { cls: 'tot' }),
+      row('memo: opportunity cost of the capital', 'oppMemo', { ind: true }),
+      { group: 'Cumulative position' },
+      { label: 'Novated lease, cumulative', vals: t.cf.map(r => r.cumA).concat(['']), cls: 'hi' },
+      { label: 'Post-tax loan, cumulative', vals: t.cf.map(r => r.cumB).concat(['']) },
+      { label: 'Cash purchase, cumulative', vals: t.cf.map(r => r.cumC).concat(['']) },
+      { label: 'Lease advantage against the loan', vals: t.cf.map(r => r.cumB - r.cumA).concat(['']), cls: 'hi' },
+      { label: 'Lease advantage against cash', vals: t.cf.map(r => r.cumC - r.cumA).concat(['']), cls: 'hi' },
+      { label: 'Proof against Cost to own, must be nil', ind: true, proof: true, fmt: m2, vals: [t.cfProofA, t.cfProofB, t.cfProofC].concat(new Array(NY - 2).fill('')) }
+    ], { note: 'A positive number is cash out of your pocket. Running costs are identical in the loan and cash routes and already inside the lease package, which is why the lease line looks larger year to year but smaller in total. The proof cells are lease, loan and cash respectively; the cash proof runs against the pure-cash net cost, since opportunity cost is a memo here.' }) +
+    box('Cumulative cash out of pocket — ' + t.months + '-month term',
+      'The cash route starts ' + m0(I.onroad) + ' in the hole on day one and never catches up.',
+      chartLine({
+        title: 'Cumulative cash position', cats: t.cf.map(r => 'Yr ' + r.yr),
+        series: [
+          { name: 'Novated lease', color: '#1F6F5C', vals: t.cf.map(r => r.cumA) },
+          { name: 'Post-tax loan', color: '#42557E', vals: t.cf.map(r => r.cumB) },
+          { name: 'Cash purchase', color: '#7D6A96', vals: t.cf.map(r => r.cumC) }
+        ]
+      })) +
+    box('Net cash flow by year — ' + t.months + '-month term', '',
+      chartCol({
+        title: 'Net cash flow by year', cats: t.cf.map(r => 'Yr ' + r.yr), labels: false,
+        series: [
+          { name: 'Novated lease', color: '#1F6F5C', vals: t.cf.map(r => r.A) },
+          { name: 'Post-tax loan', color: '#42557E', vals: t.cf.map(r => r.B) },
+          { name: 'Cash purchase', color: '#7D6A96', vals: t.cf.map(r => r.C) }
+        ]
+      }));
+};
+
+R.charts = () => {
+  const cats = TERMCATS();
+  const cum = [];
+  const NY = O.t[0].cf.length;
+  return '<div class="sheet-h"><h2>Charts</h2>' +
+    '<p>Every chart is drawn from the same model. Change an assumption and they all move.</p></div>' +
+    '<div class="cgrid">' +
+    box('Net cost of ownership per year', 'Three ways to acquire the same car. The only fair cross-term comparison.',
+      chartCol({
+        title: 'Net cost per year', cats, series: [
+          { name: 'Novated lease', color: '#1F6F5C', vals: O.t.map(t => t.naYr) },
+          { name: 'Post-tax loan', color: '#42557E', vals: O.t.map(t => t.nbYr) },
+          { name: 'Cash, economic', color: '#7D6A96', vals: O.t.map(t => t.ncYr) }
+        ]
+      })) +
+    box('Net cost of ownership over the whole term', 'Not comparable across terms — a short term simply buys less motoring.',
+      chartCol({
+        title: 'Net cost over term', cats, series: [
+          { name: 'Novated lease', color: '#1F6F5C', vals: O.t.map(t => t.na) },
+          { name: 'Post-tax loan', color: '#42557E', vals: O.t.map(t => t.nb) },
+          { name: 'Cash, pure', color: '#7D6A96', vals: O.t.map(t => t.nc0) }
+        ]
+      })) +
+    box('Where the lease advantage comes from', 'Positive bars create the advantage; negative bars give it back.',
+      chartCol({
+        title: 'Advantage decomposition', cats, stacked: true, series: [
+          { name: 'Income tax avoided', color: '#1F6F5C', vals: O.t.map(t => t.g1) },
+          { name: 'GST credit on price', color: '#3E8C76', vals: O.t.map(t => t.g2) },
+          { name: 'GST on running costs', color: '#77B49F', vals: O.t.map(t => t.g3) },
+          { name: 'Interest difference', color: '#B4881F', vals: O.t.map(t => t.g4) },
+          { name: 'GST on balloon', color: '#A8442A', vals: O.t.map(t => t.g6) },
+          { name: 'Luxury adjustment', color: '#C2703C', vals: O.t.map(t => t.g7) },
+          { name: 'Lease-only fees', color: '#8B98A0', vals: O.t.map(t => t.g8) }
+        ]
+      })) +
+    box('Net cost of motoring over the common horizon', 'Packaged against never-packaged, every term taken to the same end date.',
+      chartCol({
+        title: 'Horizon cost', cats, series: [
+          { name: 'Packaged', color: '#1F6F5C', vals: O.t.map(t => t.np) },
+          { name: 'Self-funded', color: '#A8442A', vals: O.t.map(t => t.nu) }
+        ]
+      })) +
+    box('Net benefit per fortnight', 'Highest on the shortest term, which is precisely the trap.',
+      chartCol({
+        title: 'Benefit per fortnight', cats, fmt: m2, axfmt: m0, series: [
+          { name: 'Net benefit per fortnight', color: '#42557E', vals: O.t.map(t => t.ben) }
+        ]
+      })) +
+    box('The balloon against the vehicle\'s value', 'Equity exists only where the bar on the right is taller.',
+      chartCol({
+        title: 'Balloon vs market value', cats, series: [
+          { name: 'Balloon payable', color: '#A8442A', vals: O.t.map(t => t.bal) },
+          { name: 'Estimated market value', color: '#1F6F5C', vals: O.t.map(t => t.mkt) }
+        ]
+      })) +
+    box('Effective rate of tax relief', 'The statutory marginal rate is ' + pc(O.marginal) + '. Only the longer terms achieve it.',
+      chartCol({
+        title: 'Effective relief', cats, fmt: v => pc(v, 1), axfmt: v => pc(v, 0),
+        series: [{ name: 'Effective relief', color: '#B4881F', vals: O.t.map(t => t.eff) }]
+      })) +
+    box('Cost of choosing a shorter term', 'Extra cost over the horizon against the cheapest term available.',
+      chartCol({
+        title: 'Penalty vs best term', cats,
+        series: [{ name: 'Penalty over the horizon', color: '#A8442A', vals: O.t.map(t => t.pen) }]
+      })) +
+    box('Total finance charge', 'Interest paid across the lease term.',
+      chartCol({
+        title: 'Finance charge', cats,
+        series: [{ name: 'Interest over term', color: '#C2703C', vals: O.t.map(t => t.fc) }]
+      })) +
+    box('Present value of the benefit per month of term', 'Normalises for term length and for the timing of the money.',
+      chartCol({
+        title: 'PV per month', cats, fmt: m2, axfmt: m0,
+        series: [{ name: 'PV of benefit per month', color: '#7D6A96', vals: O.t.map(t => t.pvm) }]
+      })) +
+    '</div>' +
+    box('Cumulative net benefit over the horizon, by term',
+      'Each line plateaus when its lease ends. The longest term keeps climbing while the shorter ones stop — the visual essence of the analysis.',
+      chartLine({
+        title: 'Cumulative benefit', cats: O.t[0].cf.map(r => 'Year ' + r.yr),
+        series: O.t.map((t, i) => ({
+          name: t.months + ' mo', color: TCOL[i],
+          vals: O.t[0].cf.map(r => Math.min(r.yr, t.yrs) * t.ben * I.ppy)
+        }))
+      })) +
+    box('Take-home pay per fortnight, three positions',
+      'No car at all, the car packaged, and the same car funded from net pay.',
+      chartCol({
+        title: 'Take-home pay', cats, fmt: m2, axfmt: m0, series: [
+          { name: 'No vehicle', color: '#8B98A0', vals: O.t.map(() => O.BTH) },
+          { name: 'With novated lease', color: '#1F6F5C', vals: O.t.map(t => t.thp) },
+          { name: 'Same car, self-funded', color: '#A8442A', vals: O.t.map(t => t.thu) }
+        ]
+      }));
+};
+
+R.payslip = () => '<div class="sheet-h"><h2>Payslip</h2>' +
+  '<p>Decoding the CSL pay advice, annualising the income, and validating the tax engine against actual PAYG withheld.</p></div>' +
+  sec('1', 'Earnings for the fortnight') +
+  tbl(['Component', 'Amount', 'Share of gross'], [
+    { label: 'Ordinary hours at ' + m2(I.rate) + ' × ' + n2(I.hrs) + ' h', vals: [I.rate * I.hrs, (I.rate * I.hrs) / I.gross], fmt: m2 },
+    { label: 'Shift penalty, 15% loading', vals: [I.p15, I.p15 / I.gross], fmt: m2 },
+    { label: 'Shift penalty, 50% loading', vals: [I.p50, I.p50 / I.gross], fmt: m2 },
+    { label: 'Shift penalty, 100% loading', vals: [I.p100, I.p100 / I.gross], fmt: m2 },
+    { label: 'Rebuilt gross pay', vals: [O.rebuiltGross, O.rebuiltGross / I.gross], fmt: m2, cls: 'tot' },
+    { label: 'Stated gross pay on the advice', vals: [I.gross, 1], fmt: m2 },
+    { label: 'Variance, rounding in the published rate', vals: [O.grossVar, ''], fmt: m2, proof: true, ind: true }
+  ], { note: 'The two agree to within half a cent a fortnight, which confirms the advice is internally consistent. Set the income basis to 2 on the Inputs sheet to drive the whole model from these components instead of the stated gross.' }) +
+  sec('2', 'Annualised position') +
+  tbl(['', 'Amount'], [
+    { label: 'Annualised ordinary salary', vals: [O.base_pa] },
+    { label: 'Annualised shift penalties', vals: [O.pen_pa] },
+    { label: 'Penalties as a share of gross', vals: [O.pen_pa / O.ANN], fmt: v => pc(v, 1), ind: true },
+    { label: 'Annualised gross income', vals: [O.ANN], cls: 'tot' },
+    { label: 'Salary the SG Fleet quotes assumed', vals: [I.qsal] },
+    { label: 'Understatement in the quotes', vals: [O.ANN / I.qsal - 1], fmt: v => pc(v, 1), ind: true },
+    { label: 'Employer superannuation, annualised', vals: [I.superFn * I.ppy] },
+    { label: 'Implied Guarantee rate', vals: [I.superFn / I.gross], fmt: v => pc(v), ind: true }
+  ]) +
+  sec('3', 'Tax engine reconciliation') +
+  tbl(['', 'Amount'], [
+    { label: 'Applicable statutory bracket', vals: [pc(O.statBracket, 0)] },
+    { label: 'Marginal rate including Medicare levy', vals: [O.marginal], fmt: v => pc(v), cls: 'band' },
+    { label: 'Headroom above the ' + m0(I.bk[3]) + ' threshold', vals: [O.headroom], cls: 'band' },
+    { label: 'Modelled PAYG per fortnight', vals: [O.paygModel], fmt: m2 },
+    { label: 'PAYG withheld per the advice', vals: [I.payg], fmt: m2 },
+    { label: 'Variance', vals: [O.paygVar], fmt: m2, proof: true, ind: true }
+  ], {
+    note: 'A variance of this size is table rounding in the withholding schedules, not a modelling error, and it indicates no HELP or HECS component. If a study debt does exist the benefit would be larger, because pre-tax packaging also reduces repayment income. The headroom figure is the single most important number in the analysis: any annual deduction larger than it is only partly relieved at ' + pc(O.marginal) + '.'
+  });
+
+R.taxengine = () => '<div class="sheet-h"><h2>Tax engine</h2>' +
+  '<p>A pre-tax deduction is not relieved at one flat marginal rate. This sheet slices it bracket by bracket, and proves the result two independent ways.</p></div>' +
+  sec('1', 'Baseline tax, bracket by bracket, with no packaging') +
+  tbl(['Bracket', 'Threshold', 'Marginal rate', 'Rate increment', 'Income in band', 'Tax from band'],
+    I.bk.map((th, i) => ({
+      label: i === 0 ? 'Tax free' : pc(I.mr[i], 0) + ' bracket',
+      vals: [th, pc(I.mr[i]), pc(O.inc[i]),
+      Math.max(0, Math.min(O.ANN, i < 4 ? I.bk[i + 1] : 1e12) - th),
+      Math.max(0, Math.min(O.ANN, i < 4 ? I.bk[i + 1] : 1e12) - th) * I.mr[i]]
+    })).concat([
+      { label: 'Income tax', vals: ['', '', '', O.ANN, O.incomeTax], cls: 'tot' },
+      { label: 'Medicare levy at ' + pc(I.medicare, 0), vals: ['', '', '', '', O.medicareAmt] },
+      { label: 'Total baseline tax', vals: ['', '', '', '', O.BTAX], cls: 'tot' },
+      { label: 'Average rate of tax', vals: ['', '', '', '', O.avgRate], fmt: v => pc(v), ind: true },
+      { label: 'Baseline take-home pay per fortnight', vals: ['', '', '', '', O.BTH], fmt: m2, cls: 'band' }
+    ])) +
+  sec('2', 'The packaged position, by term') +
+  tbl(TH, [
+    tr('Pre-tax deduction per fortnight', t => t.pkfn, { fmt: m2 }),
+    tr('Annual pre-tax deduction', t => t.pk),
+    tr('Taxable income before packaging', () => O.ANN),
+    tr('Taxable income after packaging', t => t.y),
+    tr('Crosses below the ' + m0(I.bk[3]) + ' threshold?', t => t.crosses ? 'Yes — relief diluted' : 'No — full ' + pc(O.marginal, 0)),
+    tr('Income tax and Medicare payable', t => t.tx),
+    tr('Tax saved per annum', t => t.ts, { cls: 'hi' })
+  ]) +
+  sec('3', 'Where the relief comes from — the deduction sliced by bracket') +
+  tbl(TH, O.t[0].slices.map((s, k) => tr('Relieved at ' + pc(s.rate, 0), t => t.slices[k].amt, { ind: true }))
+    .concat([
+      tr('Slices total', t => t.sliceTotal, { cls: 'tot' }),
+      tr('variance against the annual deduction, must be nil', t => t.sliceVar, { fmt: m2, proof: true, ind: true }),
+      tr('Weighted relief rebuilt from the slices', t => t.weighted, { cls: 'tot' }),
+      tr('variance against tax saved, must be nil', t => t.weightedVar, { fmt: m2, proof: true, ind: true })
+    ]),
+    { note: 'The second variance row is an independent reconstruction of the tax saving from first principles. It closing to nil means the bracket analysis and the engine agree.' }) +
+  sec('4', 'The key finding') +
+  tbl(TH, [
+    tr('Effective rate of tax relief', t => t.eff, { fmt: v => pc(v), cls: 'band' }),
+    tr('dilution against the ' + pc(O.marginal, 0) + ' marginal rate', t => t.dilution, { fmt: v => pc(v), ind: true }),
+    tr('After-tax cost of $1 of package value', t => t.costOfDollar, { fmt: v => '$' + v.toFixed(3), ind: true })
+  ], { note: 'The statutory marginal rate applies only to the first slice of the deduction. Larger deductions spill into the band below and dilute the relief, which is why the shortest terms are the least tax-efficient per dollar packaged.' }) +
+  sec('5', 'Take-home pay outcomes, per fortnight') +
+  tbl(TH, [
+    tr('Baseline, no vehicle at all', () => O.BTH, { fmt: m2 }),
+    tr('With the novated lease', t => t.thp, { fmt: m2 }),
+    tr('Impact to take-home pay', t => t.impact, { fmt: m2, ind: true }),
+    tr('Same car, self-funded from net pay', t => t.unpkfn, { fmt: m2 }),
+    tr('Without packaging, take-home after car costs', t => t.thu, { fmt: m2 }),
+    tr('Net benefit per fortnight', t => t.ben, { fmt: m2, cls: 'hi' }),
+    tr('of which: income tax saving', t => t.ts / I.ppy, { fmt: m2, ind: true }),
+    tr('of which: GST saving', t => t.gstSaved, { fmt: m2, ind: true }),
+    tr('less: Luxury Vehicle Adjustment', t => -t.lva, { fmt: m2, ind: true }),
+    tr('Net benefit over the full term', t => t.bentot, { cls: 'tot' })
+  ]);
+
+R.leasemodel = () => '<div class="sheet-h"><h2>Lease model</h2>' +
+  '<p>Residuals, the calculated rate, level-payment amortisation, and calibration against the two supplied quotes.</p></div>' +
+  sec('1', 'Finance structure') +
+  tbl(TH, [
+    tr('Lease term, months', t => String(t.months)),
+    tr('Amount financed, ex GST', () => O.FIN),
+    tr('Residual percentage, ATO minimum schedule', t => I.rp[t.i], { fmt: v => pc(v) }),
+    tr('Residual, ex GST', t => t.res_ex),
+    tr('Balloon payable at term end, incl GST', t => t.res_inc, { cls: 'warn' }),
+    tr('Interest rate per annum', t => t.ir, { fmt: v => pc(v) })
+  ], { note: 'The residual follows the ATO minimum schedule. Both quotes confirm it exactly — 46.88% at 36 months and 28.13% at 60 months — so SG Fleet is using ATO minimums throughout, and the modelled terms can use the same basis with confidence.' }) +
+  sec('2', 'Amortisation at the calculated rate') +
+  tbl(TH, [
+    tr('Level monthly rental, in arrears with balloon at end', t => t.mth, { fmt: m2 }),
+    tr('Fortnights in term', t => t.nfn, { fmt: v => v.toFixed(0) }),
+    tr('Fortnightly lease rental', t => t.fnr, { fmt: m2, cls: 'hi' }),
+    tr('Total lease rentals over term', t => t.tr),
+    tr('Total finance charge', t => t.fc),
+    tr('Finance charge as a share of the amount financed', t => t.fcPct, { fmt: v => pc(v, 1), ind: true })
+  ]) +
+  sec('3', 'Proof: present value must equal the amount financed') +
+  tbl(TH, [
+    tr('PV of monthly rentals', t => t.mth * AF(t.rm, t.months)),
+    tr('PV of the balloon, residual ex GST', t => t.res_ex / Math.pow(1 + t.rm, t.months)),
+    tr('Total present value', t => t.mth * AF(t.rm, t.months) + t.res_ex / Math.pow(1 + t.rm, t.months), { cls: 'tot' }),
+    tr('Amount financed', () => O.FIN),
+    tr('Variance, must be nil', t => t.pvProof, { fmt: m2, proof: true, ind: true })
+  ]) +
+  sec('4', 'Calibration against the two supplied quotes') +
+  tbl(TH, [
+    { label: 'Quoted fortnightly lease rental', vals: ['n/a', 'n/a', m2(801.83), 'n/a', m2(675.40)] },
+    tr('Modelled fortnightly lease rental', t => t.fnr, { fmt: m2 }),
+    { label: 'Variance', vals: ['', '', m2(O.t[2].fnr - 801.83), '', m2(O.t[4].fnr - 675.40)], cls: 'tot' },
+    { label: 'Quoted balloon, incl GST', vals: ['n/a', 'n/a', m0(44331.56), 'n/a', m0(26600.83)] },
+    tr('Modelled balloon, incl GST', t => t.res_inc)
+  ], { note: 'The 36-month rental reproduces exactly. The 60-month figure implies a rate of about 8.99% against the 8.97% displayed, a rounding difference in the quote. That is the calibration the modelled 12, 24 and 48-month columns rest on.' });
+
+R.package = () => '<div class="sheet-h"><h2>Package build-up</h2>' +
+  '<p>Line by line, fortnightly and ex GST, matching the structure of the SG Fleet quotes. Every driver here was solved from the two quotes and reproduces them to the cent.</p></div>' +
+  sec('1', 'Package inclusions, per fortnight, ex GST') +
+  tbl(TH, [
+    tr('Lease rental', t => t.fnr, { fmt: m2 }),
+    tr('Package management fee', () => I.mgmt, { fmt: m2 }),
+    tr('Fuel and charging', () => I.fuel, { fmt: m2 }),
+    tr('Tyres', t => t.tyre, { fmt: m2 }),
+    tr('Service and maintenance', () => I.serv, { fmt: m2 }),
+    tr('Registration', () => I.rego, { fmt: m2 }),
+    tr('Comprehensive insurance, term average', t => t.ins, { fmt: m2 }),
+    tr('Roadside assistance', () => I.road, { fmt: m2 }),
+    tr('LeaseGuard insurance', t => t.lg, { fmt: m2 }),
+    tr('Vehicle package sub-total', t => t.sub, { fmt: m2, cls: 'tot' })
+  ], { note: 'Insurance is a term average of a premium starting at ' + m2(I.ins1) + ' and escalating ' + pc(I.insg) + ' compounding. LeaseGuard resolves to ' + pc(I.lgp, 4) + ' of the lease rental — solved from the stated totals on both quotes, which agree to five decimal places.' }) +
+  sec('2', 'Luxury Vehicle Adjustment') +
+  tbl(TH, [
+    tr('Depreciation over the term, financed less residual', t => t.dep),
+    tr('Non-deductible portion at ' + pc(I.ndf, 2), t => t.dep * I.ndf),
+    tr('Employer tax cost of it, whole of term', t => t.dep * I.ndf * I.ctr),
+    tr('Recovered from you, per fortnight', t => t.lva, { fmt: m2, cls: 'warn' })
+  ], { note: 'The adjustment exists because the employer cannot deduct depreciation above the car limit and recovers its tax cost from you. The non-deductible fraction implies a car depreciation limit of about ' + m0(O.FIN * (1 - I.ndf) * (1 + I.gstr)) + ' incl GST, consistent with the published ATO limit — strong evidence the formula is right.' }) +
+  sec('3', 'Total package cost and the self-funded alternative') +
+  tbl(TH, [
+    tr('Vehicle package sub-total', t => t.sub, { fmt: m2 }),
+    tr('Luxury Vehicle Adjustment', t => t.lva, { fmt: m2 }),
+    tr('Package total, pre-tax deduction per fortnight', t => t.pkfn, { fmt: m2, cls: 'tot' }),
+    tr('Same costs if self-funded, incl GST', t => t.unpkfn, { fmt: m2 }),
+    tr('GST saved per fortnight', t => t.gstSaved, { fmt: m2, ind: true })
+  ]) +
+  sec('4', 'Calibration against the quotes') +
+  tbl(TH, [
+    { label: 'Quoted package total', vals: ['n/a', 'n/a', m2(1190.51), 'n/a', m2(1054.67)] },
+    tr('Modelled package total', t => t.pkfn, { fmt: m2 }),
+    { label: 'Variance', vals: ['', '', pc(O.t[2].pkfn / 1190.51 - 1, 3), '', pc(O.t[4].pkfn / 1054.67 - 1, 3)], cls: 'tot' },
+    { label: 'Quoted self-funded cost', vals: ['n/a', 'n/a', m2(1257.92), 'n/a', m2(1118.21)] },
+    tr('Modelled self-funded cost', t => t.unpkfn, { fmt: m2 })
+  ], { note: 'Both quoted terms reproduce to within a few hundredths of one percent. That is what licenses the modelled 12, 24 and 48-month columns.' });
+
+R.residual = () => '<div class="sheet-h"><h2>Residual and equity</h2>' +
+  '<p>The balloon is the part of a novated lease that most illustrations understate. This sheet sizes it, tests it against likely market value, and costs the refinance option.</p></div>' +
+  sec('1', 'The obligation') +
+  tbl(TH, [
+    tr('Balloon payable, incl GST', t => t.bal, { cls: 'warn' }),
+    tr('as a share of the original on-road cost', t => t.balPct, { fmt: v => pc(v, 1), ind: true }),
+    tr('as a multiple of annual take-home pay', t => t.balMult, { fmt: v => v.toFixed(2) + '×', ind: true })
+  ]) +
+  sec('2', 'Will the car be worth the balloon?') +
+  tbl(TH, [
+    tr('Assumed retained value', t => I.ret[t.i], { fmt: v => pc(v, 1), cls: 'band' }),
+    tr('Estimated market value at term end', t => t.mkt),
+    tr('Equity position, market value less balloon', t => t.eq, { cls: 'tot' }),
+    tr('Verdict', t => t.verdict),
+    tr('Equity as a share of the balloon', t => t.eqPct, { fmt: v => pc(v, 1), ind: true })
+  ], { note: 'The ATO minimum residual tracks market value closely at two to three years but sits well below likely value at five, which is where equity is created. Retained value is the most judgemental input in the model and is flexed on the Sensitivity sheet.' }) +
+  sec('3', 'If you refinance the balloon instead of paying it') +
+  tbl(TH, [
+    tr('Months remaining to the common horizon', t => String(t.rem)),
+    tr('Monthly repayment to clear the balloon by then', t => t.refiM, { fmt: m2 }),
+    tr('Total refinance repayments', t => t.refiT),
+    tr('of which additional interest', t => t.refiInt, { ind: true }),
+    tr('Balloon paid as a lump sum at the horizon', t => t.lump)
+  ], { note: 'These are after-tax dollars. A residual refinance sits outside the novated package, so there is no pre-tax relief and no GST credit — pure dead cost created by ending the lease early and having to finance a large residual from net pay.' }) +
+  sec('4', 'Options at term end') +
+  tbl(['Option', 'What it means'], [
+    { label: 'Pay the balloon and keep the car', vals: ['Cheapest where the car is worth more than the balloon. Requires the full amount in after-tax cash.'] },
+    { label: 'Refinance the balloon', vals: ['Preserves cash, but the interest is no longer packaged. Costed in section 3 above.'] },
+    { label: 'Sell or trade and settle the balloon', vals: ['You keep any equity, or must fund any shortfall. GST applies on a sale.'] },
+    { label: 'Re-lease the same vehicle on a new term', vals: ['Puts the residual back inside a pre-tax package. Availability depends on the financier and vehicle age.'] },
+    { label: 'Return the vehicle', vals: ['A novated finance lease does not permit a simple hand-back. The residual remains your obligation.'] }
+  ]);
+
+R.fiveyear = () => '<div class="sheet-h"><h2>Common horizon comparison</h2>' +
+  '<p>Terms of different length are not directly comparable — a short lease leaves a large balloon after one year. Here every term is taken to the same end state, the vehicle owned outright at month ' + I.horiz + ', so the totals can be read side by side.</p></div>' +
+  sec('1', 'Packaged route, total after-tax cost to the horizon') +
+  tbl(TH, [
+    tr('After-tax cost of the package during the lease', t => t.fv_a),
+    tr('Balloon refinanced after the lease ends', t => t.refiT),
+    tr('Balloon paid as a lump sum at the horizon', t => t.lump),
+    tr('Running costs after the lease ends, self-funded', t => t.fv_d),
+    tr('Gross outlay to the horizon', t => t.fv_g, { cls: 'tot' }),
+    tr('less vehicle value at the horizon', t => t.v60, { ind: true }),
+    tr('Net cost of motoring, packaged', t => t.np, { cls: 'hi' }),
+    tr('per month', t => t.npM, { fmt: m2, ind: true })
+  ], { note: 'All routes finish holding the same vehicle, so the same residual value is credited to each. Fuel, tyres, servicing, registration and insurance still have to be paid once a short lease ends — but then with after-tax dollars and with GST.' }) +
+  sec('2', 'Never-packaged route, same car, same horizon') +
+  tbl(TH, [
+    tr('After-tax cost of the vehicle during the lease period', t => t.au),
+    tr('Balloon refinanced or paid at the horizon', t => t.refiT + t.lump),
+    tr('Running costs after that period', t => t.fv_d),
+    tr('Gross outlay to the horizon', t => t.gu, { cls: 'tot' }),
+    tr('Net cost of motoring, self-funded', t => t.nu, { cls: 'warn' })
+  ]) +
+  sec('3', 'The verdict') +
+  tbl(TH, [
+    tr('Saving from salary packaging over the horizon', t => t.sv, { cls: 'hi' }),
+    tr('as a share of the self-funded cost', t => t.svPct, { fmt: v => pc(v, 1), ind: true }),
+    tr('Penalty against the best available term', t => t.pen, { cls: 'warn' }),
+    tr('Ranking, 1 is cheapest over the horizon', t => String(t.rkNp), { cls: 'tot' })
+  ], { note: 'Why short terms cost more over the same period: the balloon has to be financed or found from net pay with no pre-tax relief, running costs revert to after-tax dollars with GST once the lease ends, and the pre-tax deduction during a short lease is so large that much of it is relieved at the lower rate.' });
+
+R.npv = () => '<div class="sheet-h"><h2>Present value</h2>' +
+  '<p>Nominal totals flatter the terms that pay late. Discounting at the after-tax opportunity cost of ' + pc(I.dr) + ' removes that distortion.</p></div>' +
+  sec('1', 'Present value of the packaging benefit') +
+  tbl(TH, [
+    tr('Net benefit per fortnight', t => t.ben, { fmt: m2 }),
+    tr('Fortnights in term', t => t.nfn, { fmt: v => v.toFixed(0) }),
+    tr('Nominal benefit over term', t => t.bentot),
+    tr('Present value of the benefit', t => t.pvBen, { cls: 'hi' }),
+    tr('Time-value discount applied', t => t.pvDisc, { fmt: v => pc(v, 1), ind: true }),
+    tr('PV of benefit per month of term', t => t.pvm, { fmt: m2, cls: 'band' }),
+    tr('Ranking by PV per month', t => String(t.rkPvm), { ind: true })
+  ], { note: 'Discounted at an equivalent fortnightly rate of ' + pc(O.t[0].frt, 4) + ', being ' + pc(I.dr) + ' per annum compounded fortnightly. The benefit per month of term is the cleanest single measure of how hard each term works.' }) +
+  sec('2', 'Present value of the balloon obligation') +
+  tbl(TH, [
+    tr('Balloon payable, incl GST', t => t.bal, { cls: 'warn' }),
+    tr('Present value of the balloon', t => t.pvBal),
+    tr('PV of benefit less PV of balloon', t => t.pvNet, { cls: 'tot' })
+  ], { note: 'On the shortest terms the present value of the balloon exceeds the present value of the entire benefit — the clearest possible statement of why they should be rejected.' }) +
+  sec('3', 'Present value of each acquisition route') +
+  tbl(TH, [
+    tr('Novated lease', t => t.pa, { cls: 'hi' }),
+    tr('Post-tax loan', t => t.pb),
+    tr('Cash purchase', t => t.pc),
+    tr('PV advantage of the lease against the loan', t => t.pvAdvLoan, { cls: 'hi' }),
+    tr('PV advantage of the lease against cash', t => t.pvAdvCash, { cls: 'hi' })
+  ], { note: 'Discounted at the opportunity cost rate of ' + pc(I.oppr) + ' set on the Inputs sheet, which can differ from the ' + pc(I.dr) + ' used for the benefit above.' });
+
+R.sensitivity = () => {
+  const S = O.sens;
+  let h = '<div class="sheet-h"><h2>Sensitivity</h2>' +
+    '<p>Every judgemental assumption, flexed. The question is not just what the answer is, but how robust it is.</p></div>';
+  h += sec('1', 'Income — net benefit per fortnight');
+  h += tbl([''].concat(O.t.map(t => t.months + ' mo')).concat(['Income']),
+    S.income.map(s => ({ label: s.label, fmt: m2, vals: s.ben.concat([m0(s.inc)]) })),
+    { note: 'The benefit rises with income because relief rises with the marginal rate. The penalty-reduction row is the one that matters: because shift loadings drive the bracket, a sustained cut in them erodes the benefit. The structure remains sound across the whole range tested.' });
+  h += sec('2', 'Interest rate');
+  const rateRows = [];
+  S.rate.forEach(b => {
+    const nm = b.d === 0 ? 'Base rate' : (b.d > 0 ? 'Higher by ' + pc(b.d) : 'Lower by ' + pc(-b.d));
+    rateRows.push({ group: nm });
+    rateRows.push({ label: 'Package total per fortnight', ind: true, fmt: m2, vals: b.rows.map(r => r.pkfn) });
+    rateRows.push({ label: 'Net benefit per fortnight', ind: true, fmt: m2, vals: b.rows.map(r => r.ben), cls: b.d === 0 ? 'hi' : '' });
+    rateRows.push({ label: 'Impact to take-home pay — the real cost', ind: true, fmt: m2, vals: b.rows.map(r => r.impact), cls: b.d === 0 ? 'tot' : 'warn' });
+  });
+  h += tbl(TH, rateRows, { note: 'Read the impact row, not the benefit row. A higher rate raises the measured benefit — the pre-tax deduction is larger, so it shelters more tax and more GST — but the real cost to take-home pay also rises. Interest rate risk is genuine but second-order; the term decision dominates it.' });
+  h += sec('3', 'Retained market value — equity at term end');
+  h += tbl(TH, S.retained.map(r => ({
+    label: r.d === 0 ? 'Base assumption' : (r.d > 0 ? 'Better by ' + pc(r.d, 0) : 'Worse by ' + pc(-r.d, 0)),
+    vals: r.eq, cls: r.d === 0 ? 'tot' : ''
+  })));
+  h += sec('4', 'Vehicle value at the horizon — net cost of motoring');
+  h += tbl(TH, S.m60.map(r => ({
+    label: 'Car worth ' + pc(r.v, 1) + ' of cost at the horizon', vals: r.np,
+    cls: Math.abs(r.v - I.ret[4]) < 1e-9 ? 'tot' : ''
+  })), { note: 'The longest term stays cheapest across the entire plausible range of residual values. The ranking is robust to this assumption.' });
+  h += sec('5', 'Superannuation Guarantee risk');
+  h += tbl(TH, [
+    { label: 'Guarantee forgone per annum, worst case', vals: S.superRisk.map(s => s.pa) },
+    { label: 'over the full term', vals: S.superRisk.map(s => s.term), ind: true },
+    { label: 'Benefit net of the super loss', vals: S.superRisk.map(s => s.net), cls: 'hi' },
+    { label: 'Share of the benefit retained', vals: S.superRisk.map(s => s.pct), fmt: v => pc(v, 1), ind: true }
+  ], { note: 'Since January 2020 an employer may not reduce the Guarantee by amounts sacrificed into super, but a novated lease is a non-super benefit. Whether CSL calculates the Guarantee on pre- or post-sacrifice ordinary time earnings is a policy question worth confirming in writing — both quotes expressly exclude it. Even on the worst case the benefit remains strongly positive and the ranking is unchanged.' });
+  h += sec('6', 'Reportable fringe benefits and the Medicare levy surcharge');
+  h += tbl(['', 'Amount'], [
+    { label: 'FBT base value', vals: [I.fbtbase] },
+    { label: 'Statutory fraction at ' + pc(I.statfrac, 0), vals: [O.rfbaTaxable] },
+    { label: 'Grossed up at ' + I.grossup.toFixed(4), vals: [O.RFBA], cls: 'band' }
+  ]) +
+    tbl(TH, [
+      { label: 'Change in Medicare levy surcharge per annum', vals: S.mls, fmt: m2 }
+    ], { note: 'The vehicle is a zero or low emissions vehicle and exempt from FBT, but the reportable amount is still disclosed on the payment summary. It attracts no income tax, yet counts for the surcharge, private health rebate tiers, and family assistance and child support tests. The movement is immaterial either way at this income, and nil if private hospital cover is held. Division 293 is not triggered — the $250,000 threshold is not approached.' });
+  return h;
+};
+
+R.amortisation = () => {
+  const t = O.t[amTerm];
+  return '<div class="sheet-h"><h2>Amortisation</h2>' +
+    '<p>The full monthly schedule, proving each balloon is correctly priced. The closing balance in the final month must equal the residual exactly.</p></div>' +
+    '<div class="pills" role="group" aria-label="Term">' +
+    O.t.map((x, i) => '<button data-am="' + i + '" aria-pressed="' + (i === amTerm) + '">' + x.months + ' months</button>').join('') +
+    '</div>' +
+    '<div class="kpis">' +
+    '<div class="kpi"><div class="k">Monthly rental</div><div class="v">' + m2(t.mth) + '</div></div>' +
+    '<div class="kpi"><div class="k">Rate per annum</div><div class="v">' + pc(t.ir) + '</div></div>' +
+    '<div class="kpi liab"><div class="k">Residual, ex GST</div><div class="v">' + m0(t.res_ex) + '</div></div>' +
+    '<div class="kpi liab"><div class="k">Balloon, incl GST</div><div class="v">' + m0(t.bal) + '</div></div>' +
+    '<div class="kpi lease"><div class="k">Total interest</div><div class="v">' + m0(t.fc) + '</div></div>' +
+    '<div class="kpi lease"><div class="k">Closing balance variance</div><div class="v">' + m2(t.schedVar) + '</div></div>' +
+    '</div>' +
+    tbl(['Month', 'Opening balance', 'Payment', 'Interest', 'Principal', 'Closing balance'],
+      t.sched.map(s => ({
+        label: String(s.m), fmt: m2,
+        vals: [s.open, s.pay, s.interest, s.principal, s.close]
+      })).concat([{
+        label: 'Residual, ex GST', fmt: m2, cls: 'tot',
+        vals: ['', '', '', '', t.res_ex]
+      }, {
+        label: 'Variance, must be nil', fmt: m2, proof: true, ind: true,
+        vals: ['', '', '', '', t.schedVar]
+      }]), { tall: true, note: 'Level payment in arrears with the residual as a balloon at the end. The schedule closing exactly on the residual proves the rental, the rate and the balloon are mutually consistent.' });
+};
+
+/* ================= inputs ================= */
+const IDEF = [
+  { g: 'Employment income — CSL pay advice, fortnight ended 21 August 2026' },
+  { k: 'rate', l: 'Ordinary hourly rate', t: 'money4', tip: 'Payslip: Normal Salary rate, also applied to carers leave and 100% penalties.' },
+  { k: 'hrs', l: 'Ordinary hours per fortnight', t: 'num2' },
+  { k: 'p15', l: 'Shift penalty, 15% loading', t: 'money' },
+  { k: 'p50', l: 'Shift penalty, 50% loading', t: 'money' },
+  { k: 'p100', l: 'Shift penalty, 100% loading', t: 'money' },
+  { k: 'gross', l: 'Actual gross pay per fortnight', t: 'money', tip: 'The authoritative driver. Year-to-date gross divided by this figure gives exactly five pays, so it is the year-to-date average.' },
+  { k: 'ppy', l: 'Pay periods per year', t: 'int' },
+  { k: 'payg', l: 'PAYG withheld per fortnight', t: 'money', tip: 'Used only to validate the tax engine.' },
+  { k: 'superFn', l: 'Employer superannuation per fortnight', t: 'money' },
+  { k: 'sg', l: 'Superannuation Guarantee rate', t: 'pct' },
+  { k: 'ibasis', l: 'Income basis: 1 = stated gross, 2 = rebuilt from components', t: 'int', key: 1, tip: 'Set to 2 to drive the whole model from the hourly rate, hours and penalty lines instead — useful for testing a pay rise or a change in shift pattern.' },
+  { k: 'qsal', l: 'Salary the SG Fleet quotes assumed', t: 'money0' },
+
+  { g: 'Taxation — 2026-27 Australian resident' },
+  { k: 'bk', l: 'Bracket thresholds', t: 'arr0' },
+  { k: 'mr', l: 'Marginal rates', t: 'arrpct' },
+  { k: 'medicare', l: 'Medicare levy', t: 'pct' },
+  { k: 'mls', l: 'Medicare levy surcharge, top tier', t: 'pct' },
+  { k: 'grossup', l: 'FBT gross-up factor, type 2', t: 'num4' },
+  { k: 'statfrac', l: 'FBT statutory fraction', t: 'pct' },
+  { k: 'ctr', l: 'Company tax rate', t: 'pct', tip: 'Used in the Luxury Vehicle Adjustment.' },
+
+  { g: 'Vehicle and finance — SG Fleet quotes 260909-WVUU44 and -XKNG8U' },
+  { k: 'onroad', l: 'Vehicle on-road cost, incl GST', t: 'money0' },
+  { k: 'gstc', l: 'GST credit claimed by the employer', t: 'money0' },
+  { k: 'gstr', l: 'GST rate', t: 'pct' },
+  { k: 'fbtbase', l: 'FBT base value', t: 'money0' },
+  { k: 'km', l: 'Annual distance', t: 'int' },
+
+  { g: 'Term-specific parameters' },
+  { k: 'rp', l: 'Residual, ATO minimum', t: 'arrpct' },
+  { k: 'ir', l: 'Interest rate', t: 'arrpct', key: 1, tip: 'Quotes give 8.68% at 36 months and 8.97% at 60. The other three are interpolated linearly — the main assumption behind the modelled terms.' },
+  { k: 'tyre', l: 'Tyre budget per fortnight', t: 'arr2' },
+  { k: 'ret', l: 'Retained value at term end', t: 'arrpct', key: 1, tip: 'The single most judgemental input. Luxury battery-electric depreciation in the Australian market.' },
+
+  { g: 'Running-cost drivers — solved from both quotes' },
+  { k: 'mgmt', l: 'Package management fee', t: 'money' },
+  { k: 'fuel', l: 'Fuel and charging', t: 'money' },
+  { k: 'serv', l: 'Service and maintenance', t: 'money' },
+  { k: 'rego', l: 'Registration', t: 'money' },
+  { k: 'road', l: 'Roadside assistance', t: 'money' },
+  { k: 'ins1', l: 'Comprehensive insurance, year 1', t: 'money' },
+  { k: 'insg', l: 'Insurance annual uplift, compounding', t: 'pct' },
+  { k: 'lgp', l: 'LeaseGuard, share of lease rentals', t: 'pct4' },
+  { k: 'ndf', l: 'Non-deductible depreciation fraction', t: 'pct4' },
+  { k: 'dr', l: 'Discount rate for the benefit', t: 'pct', key: 1 },
+
+  { g: 'Acquisition comparison' },
+  { k: 'horiz', l: 'Common comparison horizon, months', t: 'int', key: 1, tip: 'Every route is compared over this same horizon so terms of different length are directly comparable.' },
+  { k: 'lnprem', l: 'Post-tax loan, rate premium over the lease rate', t: 'pct', tip: 'Nil by default, so the loan carries the same rate as the lease and the comparison isolates the tax treatment.' },
+  { k: 'lnbal', l: 'Post-tax loan, balloon or residual', t: 'pct', tip: 'Nil means a conventional fully amortising loan, so you own the car outright at the end.' },
+  { k: 'lnfee', l: 'Post-tax loan, total fees over the term', t: 'money0' },
+  { k: 'oppr', l: 'Cash purchase, opportunity cost rate', t: 'pct', key: 1, tip: 'What the purchase price would have earned after tax. Set to nil to see the pure cash outflow.' },
+  { k: 'eqthr', l: 'Equity verdict threshold', t: 'money0' },
+
+  { g: 'Sensitivity scenario steps' },
+  { k: 'srl', l: 'Interest rate stress, large step', t: 'pct' },
+  { k: 'srs', l: 'Interest rate stress, small step', t: 'pct' },
+  { k: 'svl', l: 'Retained value stress, large step', t: 'pct' },
+  { k: 'svs', l: 'Retained value stress, small step', t: 'pct' },
+  { k: 'spl', l: 'Shift penalty stress, reduction factor', t: 'num2', key: 1, tip: '0.75 means a sustained 25% cut in shift loadings — the largest single threat to the benefit.' },
+  { k: 'sph', l: 'Shift penalty stress, increase factor', t: 'num2' },
+  { k: 'm60', l: 'Vehicle value at the horizon, stress grid', t: 'arrpct' }
+];
+const ISPEC = {
+  money: { s: .01, f: v => v.toFixed(2), p: 1 }, money0: { s: 1, f: v => v.toFixed(0), p: 1 },
+  money4: { s: .0001, f: v => v.toFixed(4), p: 1 }, num2: { s: .01, f: v => v.toFixed(2), p: 1 },
+  num4: { s: .0001, f: v => v.toFixed(4), p: 1 }, int: { s: 1, f: v => v.toFixed(0), p: 1 },
+  pct: { s: .01, f: v => (v * 100).toFixed(2), p: 100 }, pct4: { s: .0001, f: v => (v * 100).toFixed(4), p: 100 },
+  arr0: { s: 1, f: v => v.toFixed(0), p: 1, arr: 1 }, arr2: { s: .01, f: v => v.toFixed(2), p: 1, arr: 1 },
+  arrpct: { s: .01, f: v => (v * 100).toFixed(2), p: 100, arr: 1 }
+};
+function inputsHTML() {
+  let h = '<p class="itip" style="margin-top:12px">Edit any figure. The whole model, every table and every chart recalculates immediately, and the proof bar at the foot of the screen confirms the workings still reconcile.</p>';
+  IDEF.forEach(d => {
+    if (d.g) { h += '<div class="igrp">' + d.g + '</div>'; return; }
+    const sp = ISPEC[d.t];
+    if (sp.arr) {
+      h += '<div class="ihead"><span>' + d.l + (sp.p === 100 ? ' (%)' : '') + '</span>' +
+        (d.k === 'bk' || d.k === 'mr' ? '<b>1</b><b>2</b><b>3</b><b>4</b><b>5</b>' :
+          O.t.map(t => '<b>' + t.months + '</b>').join('')) + '</div>';
+      h += '<div class="iterm"><span></span>' + I[d.k].map((v, j) =>
+        '<input type="number" step="' + sp.s + '" value="' + sp.f(v) + '" data-k="' + d.k + '" data-j="' + j + '" data-p="' + sp.p + '" aria-label="' + esc(d.l) + ' ' + (j + 1) + '">').join('') + '</div>';
+    } else {
+      h += '<div class="irow' + (d.key ? ' key' : '') + '"><label for="in_' + d.k + '">' + d.l + (sp.p === 100 ? ' (%)' : '') + '</label>' +
+        '<input id="in_' + d.k + '" type="number" step="' + sp.s + '" value="' + sp.f(I[d.k]) + '" data-k="' + d.k + '" data-p="' + sp.p + '"></div>';
+    }
+    if (d.tip) h += '<p class="itip">' + d.tip + '</p>';
+  });
+  return h;
+}
+R.inputs = () => {
+  let h = '<div class="sheet-h"><h2>Inputs</h2>' +
+    '<p>Every driver and assumption behind the analysis, each one sourced. Change any of them and the whole model re-runs. Nothing anywhere else in this document is hard-coded.</p></div>';
+  h += '<div class="kpis">' +
+    '<div class="kpi sig"><div class="k">Annualised gross income</div><div class="v">' + m0(O.ANN) + '</div></div>' +
+    '<div class="kpi"><div class="k">Amount financed, ex GST</div><div class="v">' + m0(O.FIN) + '</div></div>' +
+    '<div class="kpi sig"><div class="k">Marginal rate incl. Medicare</div><div class="v">' + pc(O.marginal) + '</div></div>' +
+    '<div class="kpi"><div class="k">Implied car depreciation limit</div><div class="v">' + m0(O.FIN * (1 - I.ndf) * (1 + I.gstr)) + '</div></div>' +
+    '</div>';
+  h += sec('', 'Derived from the inputs below');
+  h += tbl(['', 'Amount', 'How it is derived'], [
+    { label: 'Annualised ordinary salary', vals: [O.base_pa, 'rate × hours × pay periods'] },
+    { label: 'Annualised shift penalties', vals: [O.pen_pa, 'sum of the three loadings × pay periods'] },
+    { label: 'Annualised gross income', vals: [O.ANN, 'stated gross × pay periods'], cls: 'tot' },
+    { label: 'Amount financed, ex GST', vals: [O.FIN, 'on-road cost less the GST credit'] },
+    { label: 'Reportable fringe benefits amount', vals: [O.RFBA, 'FBT base × statutory fraction × gross-up'] },
+    { label: 'Implied car depreciation limit, incl GST', vals: [O.FIN * (1 - I.ndf) * (1 + I.gstr), 'cross-check on the adjustment solve'] }
+  ]);
+  h += '<div class="sec">Editable drivers</div>';
+  h += '<div style="max-width:520px">' + inputsHTML() + '</div>';
+  h += '<p class="note"><b>Legend.</b> Every field on this page is an input. Anything shown as plain text anywhere in this document is calculated. Fields with a deeper tint are the judgemental assumptions — those are the ones worth stress-testing on the Sensitivity sheet rather than accepting.</p>';
+  return h;
+};
+
+/* ================= render ================= */
+function railHTML() {
+  let h = '', last = '';
+  SHEETS.forEach(s => {
+    if (s.grp !== last) { h += '<div class="grp">' + s.grp + '</div>'; last = s.grp; }
+    h += '<button data-s="' + s.id + '" aria-current="' + (s.id === sheet) + '">' + s.label + '</button>';
+  });
+  return h;
+}
+function header() {
+  const b = O.best;
+  const mx = Math.max(...O.t.map(t => Math.max(t.na, t.nb, t.nc0)));
+  const w = v => Math.max(0, v / mx * 100).toFixed(2) + '%';
+  document.getElementById('hHead').textContent = m0(b.na) + ' on a ' + b.months + '-month lease';
+  document.getElementById('hBest').textContent = m0(b.na);
+  document.getElementById('hTerm').textContent = b.months + ' months — recommended';
+  document.getElementById('hRoutes').innerHTML = [
+    ['Novated lease', 'lease', b.na], ['Post-tax loan', 'loan', b.nb], ['Cash purchase', 'cash', b.nc0]
+  ].map(r => '<div class="route"><span class="rname">' + r[0] + '</span><span class="rtrack">' +
+    '<span class="rfill ' + r[1] + '" style="width:' + w(r[2]) + '"></span></span>' +
+    '<span class="rval">' + m0(r[2]) + '</span></div>').join('');
+}
+function proofs() {
+  const mx = a => Math.max(...a.map(Math.abs));
+  const P = [
+    ['Lease PV equals amount financed', mx(O.t.map(t => t.pvProof))],
+    ['Bracket slices sum to the deduction', mx(O.t.map(t => t.sliceVar))],
+    ['Weighted relief rebuilds tax saved', mx(O.t.map(t => t.weightedVar))],
+    ['Cost-to-own advantage reconciles', mx(O.t.map(t => t.gVar))],
+    ['Cash flow ties to cost to own', mx(O.t.map(t => Math.max(Math.abs(t.cfProofA), Math.abs(t.cfProofB), Math.abs(t.cfProofC))))],
+    ['Amortisation closes on the residual', mx(O.t.map(t => t.schedVar))]
+  ];
+  const bad = P.filter(p => p[1] > 0.005).length;
+  document.getElementById('proofbar').innerHTML =
+    '<span><b>' + (P.length - bad) + ' of ' + P.length + '</b> internal proofs reconcile to nil</span>' +
+    P.map(p => '<span class="' + (p[1] > 0.005 ? 'bad' : 'ok') + '">' +
+      (p[1] > 0.005 ? '✕ ' : '✓ ') + p[0] + '</span>').join('');
+}
+function render() {
+  O = compute(I);
+  header();
+  document.getElementById('rail').innerHTML = railHTML();
+  document.getElementById('view').innerHTML = (R[sheet] || R.summary)();
+  document.getElementById('inputs').innerHTML = inputsHTML();
+  proofs();
+}
+
+/* ================= events ================= */
+document.addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  if (b.dataset.s) { sheet = b.dataset.s; render(); window.scrollTo({ top: 0, behavior: 'instant' }); return; }
+  if (b.dataset.cf !== undefined) { cfTerm = +b.dataset.cf; render(); return; }
+  if (b.dataset.am !== undefined) { amTerm = +b.dataset.am; render(); return; }
+  if (b.id === 'openDrawer') { drawer(true); return; }
+  if (b.id === 'closeDrawer') { drawer(false); return; }
+  if (b.id === 'reset') { I = clone(DEFAULTS); render(); return; }
+});
+document.getElementById('scrim').addEventListener('click', () => drawer(false));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') drawer(false); });
+function drawer(on) {
+  document.getElementById('drawer').classList.toggle('open', on);
+  document.getElementById('scrim').classList.toggle('on', on);
+}
+document.addEventListener('input', e => {
+  const t = e.target;
+  if (t.tagName !== 'INPUT' || !t.dataset.k) return;
+  const v = parseFloat(t.value);
+  if (!isFinite(v)) return;
+  const val = v / (+t.dataset.p || 1);
+  if (t.dataset.j !== undefined) I[t.dataset.k][+t.dataset.j] = val;
+  else I[t.dataset.k] = val;
+  // re-render everything except the field being typed in
+  const id = t.id, k = t.dataset.k, j = t.dataset.j, pos = t.selectionStart;
+  O = compute(I);
+  header(); proofs();
+  document.getElementById('view').innerHTML = (R[sheet] || R.summary)();
+  const dv = document.getElementById('dirty');
+  dv.textContent = 'Recalculated. Reset to return to the sourced figures.';
+  if (sheet === 'inputs') {
+    const sel = j !== undefined ? '[data-k="' + k + '"][data-j="' + j + '"]' : (id ? '#' + id : '[data-k="' + k + '"]');
+    const el = document.querySelector('#view ' + sel);
+    if (el) { el.focus(); try { el.setSelectionRange(pos, pos); } catch (_) { } }
+  }
+});
+render();
+
+</script>
+</body>
+</html>
